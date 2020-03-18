@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher(toPath).forward(request, response);
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();;
 		}
 	}
 
