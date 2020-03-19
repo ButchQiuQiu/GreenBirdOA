@@ -1,4 +1,4 @@
-package com.bdqn.data.util;
+package com.bdqn.model.data.util;
 
 import java.util.List;
 //数据通用类 继承dao通用接口 所有daoimpl都会继承他 

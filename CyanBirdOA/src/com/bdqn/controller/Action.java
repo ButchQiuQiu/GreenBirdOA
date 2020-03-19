@@ -1,4 +1,4 @@
-package com.bdqn.framework;
+package com.bdqn.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

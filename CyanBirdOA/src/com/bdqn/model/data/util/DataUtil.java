@@ -1,4 +1,4 @@
-package com.bdqn.data.util;
+package com.bdqn.model.data.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Connection;

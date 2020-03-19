@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bdqn.framework.Action;
-
 /**
  * Servlet implementation class Controller
  */
@@ -31,7 +29,7 @@ public class Controller extends HttpServlet {
 		System.out.println(path);
 		path=path.substring(path.lastIndexOf("/")+1, path.length()-3);
 		String className=path.substring(0, 1).toUpperCase()+path.substring(1);
-		className="com.bdqn.action."+className+"Action";
+		className="com.bdqn.model.actionbiz."+className+"Action";
 		try {
 			@SuppressWarnings("rawtypes")
 			Class clazz=Class.forName(className);

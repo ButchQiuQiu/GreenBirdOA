@@ -22,7 +22,7 @@
   <filter>
     <display-name>Filter</display-name>
     <filter-name>Filter</filter-name>
-    <filter-class>com.bdqn.filter.Filter</filter-class>
+    <filter-class>com.bdqn.controller.Filter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>Filter</filter-name>

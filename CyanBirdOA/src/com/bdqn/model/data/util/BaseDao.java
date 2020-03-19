@@ -1,4 +1,4 @@
-package com.bdqn.data.util;
+package com.bdqn.model.data.util;
 
 import java.util.List;
 
