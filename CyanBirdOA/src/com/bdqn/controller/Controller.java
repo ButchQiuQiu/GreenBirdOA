@@ -28,8 +28,8 @@ public class Controller extends HttpServlet {
 		String path=request.getServletPath();
 		System.out.println(path);
 		path=path.substring(path.lastIndexOf("/")+1, path.length()-3);
-		String className=path.substring(0, 1).toUpperCase()+path.substring(1);
-		//映射到指定的action
+		String className=path.substring(0, 1)+path.substring(1);
+		//映射到指定的action 
 		className=("com.bdqn.model.actionbiz."+className+"Action").replace('_', '.');
 		try {
 			@SuppressWarnings("rawtypes")

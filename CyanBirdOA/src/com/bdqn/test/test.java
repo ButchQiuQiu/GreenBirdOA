@@ -1,9 +1,11 @@
 package com.bdqn.test;
 
+import net.sf.json.JSONObject;
+
 public class test {
 	public static void main(String[] args) {
-		String className="com.bdqn.model.actionbiz.login_IsNameAction".replace('_', '.');
-		System.out.println(className);
+		JSONObject jobject=JSONObject.fromObject("{'returnIsTrue':'"+true+"'}");
+		System.out.println(jobject.toString());
 		//
 		
 	}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+
+
+</head>
+
+<body class="bg-dark">
+
+
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="images/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="login-form">
+                    <form>
+                        <div class="form-group">
+                            <label>账号</label>
+                            <input id="user" type="text" class="form-control" placeholder="账号">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input id="pwd" type="password" class="form-control" placeholder="密码">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 记住我
+                            </label>
+                             <label class="pull-right">
+                                <a href="#">忘记密码?</a>
+                            </label>
+
+                        </div>
+                        <button onclick="login()" type="submit"
+                            class="btn btn-success btn-flat m-b-30 m-t-30">登录</button>
+
+                        <div class="register-link m-t-15 text-center">
+                            <p>账号由上级创建 </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+    <script>
+        function login(){
+            var user=document.getElementById("user").value;
+            var pwd=document.getElementById("pwd").value;
+            console.log(user+"___"+pwd);
+            $.ajax({
+                    url: "login_UserIsTrue.do",           //请求的url
+                    type: "post",               //请求方式get，post
+                    data: {"user":user,"pwd":pwd},            //传递给服务器的数据
+                    dataType: "json",           //返回的数据类型为文本
+                    success: function(data){
+                        if(data.returnIsTrue){
+                            alert("登录成功");
+                            location.href="index.html";
+                        }
+                    },              //成功后
+                    error: function (data) {    //返回错误后的处理
+                        alert("登录出错");
+                    }
+                });
+        }
+    </script>
+
+
+</body>
+
+</html>
