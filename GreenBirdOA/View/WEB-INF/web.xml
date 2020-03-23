@@ -28,4 +28,7 @@
     <filter-name>Filter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
+  <listener>
+    <listener-class>com.bdqn.model.global.SigninListener</listener-class>
+  </listener>
 </web-app>

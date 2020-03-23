@@ -64,7 +64,10 @@ public final class DataUtil {
 				//判断这个属性是否为外键对象,是就迭代读取外键表转为对象保存进数据,否就保存就正常保存数据
 				if(fieldName.indexOf("fk_")==0) {
 					data=rs.getObject(fieldName);
-					//利用反射获取外键类对应的类名
+					//利用反射获取外键类对应的类名(如果不止一个下划线那么外键类名是第一个下划线到第二个下划线的中间字符串)
+					if(fieldName.indexOf("_")!=0) {
+						
+					}
 					String fkClassName=cs.getPackageName()+"."+fieldName.substring(3,4).toUpperCase()+fieldName.substring(4);
 					//利用反射获取外键类对应的表名
 					String fkTableName=(String)Class.forName(fkClassName).getField("tablename").get(null);

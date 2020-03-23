@@ -12,6 +12,7 @@ public class UserIsTrueAction extends UserIsTrue{
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse rep) {
+		
 		try {
 			PrintWriter writer=rep.getWriter();
 			this.user=req.getParameter("name");
