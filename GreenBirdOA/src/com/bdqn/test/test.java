@@ -1,14 +1,10 @@
 package com.bdqn.test;
 
-import net.sf.json.JSONObject;
+import com.bdqn.model.data.bean.User;
+import com.bdqn.model.data.dao.impl.UserDaoImpl;
 
 public class test {
 	public static void main(String[] args) {
-		
-		String value="fk_sdfusersdfsdfsdfsd_sent";
-		String str=value.substring(3, (value.substring(3, value.length())).indexOf("_")+3);
-		System.out.println(str);
-		//
-		
+		System.out.println(new UserDaoImpl().LoginIsTrue("Qiu123456", "123456"));
 	}
 }

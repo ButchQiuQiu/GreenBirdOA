@@ -63,7 +63,6 @@
         </div>
     </div>
 
-
    
 
 
@@ -79,9 +78,11 @@
                     data: {"user":user,"pwd":pwd},            //传递给服务器的数据
                     dataType: "json",           //返回的数据类型为文本
                     success: function(data){
-                        if(data.returnIsTrue){
+                        if(data.returnIsTrue=="true"){
                             alert("登录成功");
                             location.href="index.html";
+                        }else{
+                        	alert("账号密码错误");
                         }
                     },              //成功后
                     error: function (data) {    //返回错误后的处理

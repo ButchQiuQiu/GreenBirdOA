@@ -12,7 +12,7 @@ import java.util.List;
 
 //不用创建实例的静态工具类 包括底层数据操作
 public final class DataUtil {
-	public static String ConStr="jdbc:mysql://localhost:3306/test20200311?characterEncoding=utf-8",
+	public static String ConStr="jdbc:mysql://localhost:3306/greenbirdoa?characterEncoding=utf-8",
 			  User="root",
 			  Pwd="199598";
 //	private static final String ConStr="jdbc:mysql://192.168.43.162:3306/exam?characterEncoding=utf-8",
@@ -65,10 +65,13 @@ public final class DataUtil {
 				if(fieldName.indexOf("fk_")==0) {
 					data=rs.getObject(fieldName);
 					//利用反射获取外键类对应的类名(如果不止一个下划线那么外键类名是第一个下划线到第二个下划线的中间字符串)
-					if(fieldName.indexOf("_")!=0) {
-						
+					String fkClassName=fieldName.substring(3, fieldName.length());
+					//如果多一个_就表示多出来的是外键字段名,减去它就是外键类名了
+					if(fkClassName.indexOf("_")!=-1) {
+						fkClassName=fkClassName.substring(0,fkClassName.indexOf('_'));
 					}
-					String fkClassName=cs.getPackageName()+"."+fieldName.substring(3,4).toUpperCase()+fieldName.substring(4);
+					//把fkClassName变成带包名的类名全称
+					fkClassName=cs.getPackageName()+"."+fkClassName.substring(0,1).toUpperCase()+fkClassName.substring(1);
 					//利用反射获取外键类对应的表名
 					String fkTableName=(String)Class.forName(fkClassName).getField("tablename").get(null);
 					//迭代计算出这外键表对象
@@ -80,8 +83,8 @@ public final class DataUtil {
 				//调用封装函数封装属性
 				DataUtil.invokeByMethodName(
 						DataUtil.GetSetMethodNameForEclipseEncap(fieldName), 	//反射方法名--加工为包装set函数
-						data,															//反射方法的参数
-						bean															//指定反射的对象
+						data,													//反射方法的参数
+						bean													//指定反射的对象
 				);
 			}
 			//把实体类加入进集合

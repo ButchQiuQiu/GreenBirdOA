@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bdqn.model.data.dao.UserDao;
+import com.bdqn.model.data.dao.impl.UserDaoImpl;
+
 import net.sf.json.JSONObject;
 
 public class UserIsTrueAction extends UserIsTrue{
@@ -15,11 +18,15 @@ public class UserIsTrueAction extends UserIsTrue{
 		
 		try {
 			PrintWriter writer=rep.getWriter();
-			this.user=req.getParameter("name");
+			this.user=req.getParameter("user");
 			this.pwd=req.getParameter("pwd");
-			if(this.user=="admin"&&this.pwd=="admin") {
+			UserDao ud=new UserDaoImpl();
+			//验证登录成功就把user存储到session
+			if(ud.LoginIsTrue(this.user,this.pwd)) {
 				this.returnIsTrue=true;
-			}else {
+				//存储user
+				req.getSession().setAttribute("user", user);
+			}else{
 				this.returnIsTrue=false;
 			}
 			JSONObject jobject=JSONObject.fromObject("{'returnIsTrue':'"+this.returnIsTrue+"'}");

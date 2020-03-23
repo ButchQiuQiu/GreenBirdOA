@@ -1,5 +1,6 @@
 package com.bdqn.model.data.dao;
 
-public class keep {
+
+public interface WorkFlowDao{
 
 }

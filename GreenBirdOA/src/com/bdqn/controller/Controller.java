@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
 		System.out.println(path);
 		path=path.substring(path.lastIndexOf("/")+1, path.length()-3);
 		String className=path.substring(0, 1)+path.substring(1);
-		//映射到指定的action 
+		//利用反射映射到指定的action 
 		className=("com.bdqn.model.actionbiz."+className+"Action").replace('_', '.');
 		try {
 			@SuppressWarnings("rawtypes")
