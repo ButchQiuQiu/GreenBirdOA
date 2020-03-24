@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50530
 File Encoding         : 65001
 
-Date: 2020-03-23 23:42:45
+Date: 2020-03-24 14:38:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,6 +48,23 @@ CREATE TABLE `flowstatus` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `jurisdiction`
+-- ----------------------------
+DROP TABLE IF EXISTS `jurisdiction`;
+CREATE TABLE `jurisdiction` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '权限详情',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of jurisdiction
+-- ----------------------------
+INSERT INTO `jurisdiction` VALUES ('1', '普通职员');
+INSERT INTO `jurisdiction` VALUES ('2', '部门领导');
+INSERT INTO `jurisdiction` VALUES ('3', '董事长');
+
+-- ----------------------------
 -- Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -57,18 +74,18 @@ CREATE TABLE `user` (
   `pwd` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '密码',
   `name` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '姓名',
   `fk_depart` int(10) NOT NULL COMMENT '部门表外键',
+  `fk_jurisdiction` int(10) NOT NULL COMMENT '权限',
   `address` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '地址',
   `phone` int(11) NOT NULL COMMENT '手机号码',
   `lastsign` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '最后一次签到的日期,服务器由此判断今天是否缺勤',
   `absenteeism` int(10) NOT NULL COMMENT '缺勤的次数',
-  `jurisdiction` int(10) NOT NULL COMMENT '权限',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '1', '广州白云', '110110110', '2020-03-23', '1', '0');
+INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '1', '3', '广州白云', '110110110', '2020-03-23', '0');
 
 -- ----------------------------
 -- Table structure for `workflow`

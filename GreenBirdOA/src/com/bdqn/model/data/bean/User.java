@@ -11,14 +11,14 @@ public class User {
 	private Integer phone;
 	private String lastsign;
 	private Integer absenteeism;
-	private Integer jurisdiction;
+	private Jurisdiction fk_jurisdiction;
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public User(Integer id, String user, String pwd, String name, Depart fk_depart, String address,
-			Integer phone, String lastsign, Integer absenteeism, Integer jurisdiction) {
+			Integer phone, String lastsign, Integer absenteeism, Jurisdiction fk_jurisdiction) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -29,7 +29,7 @@ public class User {
 		this.phone = phone;
 		this.lastsign = lastsign;
 		this.absenteeism = absenteeism;
-		this.jurisdiction = jurisdiction;
+		this.fk_jurisdiction = fk_jurisdiction;
 	}
 	public Integer getId() {
 		return id;
@@ -85,17 +85,17 @@ public class User {
 	public void setAbsenteeism(Integer absenteeism) {
 		this.absenteeism = absenteeism;
 	}
-	public Integer getJurisdiction() {
-		return jurisdiction;
+	public Jurisdiction getJurisdiction() {
+		return fk_jurisdiction;
 	}
-	public void setJurisdiction(Integer jurisdiction) {
-		this.jurisdiction = jurisdiction;
+	public void setJurisdiction(Jurisdiction fk_jurisdiction) {
+		this.fk_jurisdiction = fk_jurisdiction;
 	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", user=" + user + ", pwd=" + pwd + ", name=" + name + ", fk_department="
 				+ fk_depart + ", address=" + address + ", phone=" + phone + ", lastsign=" + lastsign
-				+ ", absenteeism=" + absenteeism + ", jurisdiction=" + jurisdiction + ", hashCode()=" + hashCode()
+				+ ", absenteeism=" + absenteeism + ", fk_jurisdiction=" + fk_jurisdiction + ", hashCode()=" + hashCode()
 				+ "]";
 	}
 	
