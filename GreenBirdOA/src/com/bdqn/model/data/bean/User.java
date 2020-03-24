@@ -85,10 +85,11 @@ public class User {
 	public void setAbsenteeism(Integer absenteeism) {
 		this.absenteeism = absenteeism;
 	}
-	public Jurisdiction getJurisdiction() {
+	
+	public Jurisdiction getFk_jurisdiction() {
 		return fk_jurisdiction;
 	}
-	public void setJurisdiction(Jurisdiction fk_jurisdiction) {
+	public void setFk_jurisdiction(Jurisdiction fk_jurisdiction) {
 		this.fk_jurisdiction = fk_jurisdiction;
 	}
 	@Override

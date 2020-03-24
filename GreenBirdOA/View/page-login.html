@@ -42,42 +42,33 @@
                             <label>密码</label>
                             <input id="pwd" type="password" class="form-control" placeholder="密码">
                         </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> 记住我
-                            </label>
-                             <label class="pull-right">
-                                <a href="#">忘记密码?</a>
-                            </label>
-
-                        </div>
-                        <button onclick="login()" type="submit"
-                            class="btn btn-success btn-flat m-b-30 m-t-30">登录</button>
+                        
+                        <button type="button" class="btn btn-outline-success btn-lg btn-block" onclick="login()" style="border-color: green;border-width: 1px;border-style: solid;">登录</button>
 
                         <div class="register-link m-t-15 text-center">
-                            <p>账号由上级创建 </p>
+                            <p>账号由上级创建和找回 </p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-   
-
-
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery-3.4.1.js"></script>
     <script>
+    	document.onkeydown=function(event){
+           if(event.key=="Enter"){
+                login();
+           } 
+        };
         function login(){
             var user=document.getElementById("user").value;
             var pwd=document.getElementById("pwd").value;
-            console.log(user+"___"+pwd);
             $.ajax({
                     url: "login_UserIsTrue.do",           //请求的url
-                    type: "post",               //请求方式get，post
+                    type: "POST",               //请求方式get，post
                     data: {"user":user,"pwd":pwd},            //传递给服务器的数据
-                    dataType: "json",           //返回的数据类型为文本
-                    success: function(data){
+                    dataType:"json",           //返回的数据类型为文本
+                    success:function(data){
                         if(data.returnIsTrue=="true"){
                             alert("登录成功");
                             location.href="index.html";

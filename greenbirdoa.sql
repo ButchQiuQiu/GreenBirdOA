@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50530
 File Encoding         : 65001
 
-Date: 2020-03-24 14:38:59
+Date: 2020-03-24 21:04:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `jurisdiction` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '权限详情',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of jurisdiction
@@ -85,7 +85,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '1', '3', '广州白云', '110110110', '2020-03-23', '0');
+INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '4', '3', '广州白云', '110110110', '2020-03-23', '0');
 
 -- ----------------------------
 -- Table structure for `workflow`

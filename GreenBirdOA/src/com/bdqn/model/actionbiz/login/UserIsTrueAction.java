@@ -31,6 +31,8 @@ public class UserIsTrueAction extends UserIsTrue{
 			}
 			JSONObject jobject=JSONObject.fromObject("{'returnIsTrue':'"+this.returnIsTrue+"'}");
 			writer.write(jobject.toString());
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

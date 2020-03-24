@@ -1,6 +1,7 @@
 package com.bdqn.model.data.bean;
 
 public class Jurisdiction {
+	public static String tablename="jurisdiction";
 	private Integer id;
 	private String name;
 	public Jurisdiction() {
