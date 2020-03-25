@@ -1,31 +1,29 @@
-package com.bdqn.model.actionbiz.login;
+package com.bdqn.model.actionbiz.signin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.bdqn.model.data.bean.User;
 import com.bdqn.model.data.dao.UserDao;
 import com.bdqn.model.data.dao.impl.UserDaoImpl;
 
 import net.sf.json.JSONObject;
 
-public class UserIsTrueAction extends UserIsTrue{
+public class SigninAction extends Signin {
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse rep) {	
+	public String execute(HttpServletRequest req, HttpServletResponse rep) {
 		try {
-			PrintWriter writer=rep.getWriter();
-			this.user=req.getParameter("user");
-			this.pwd=req.getParameter("pwd");
+			PrintWriter writer; writer = rep.getWriter();
+			HttpSession session= req.getSession();
 			UserDao ud=new UserDaoImpl();
-			//验证登录成功就把user存储到session
-			if(ud.LoginIsTrue(this.user,this.pwd)) {
+			if(ud.SetSignin(session.getAttribute("user").toString())) {
 				this.returnIsTrue=true;
-				//存储user
-				req.getSession().setAttribute("user", user);
-			}else{
+			}else {
 				this.returnIsTrue=false;
 			}
 			JSONObject jobject=JSONObject.fromObject("{'returnIsTrue':'"+this.returnIsTrue+"'}");

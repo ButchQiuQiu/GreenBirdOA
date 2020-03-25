@@ -29,6 +29,6 @@
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
   <listener>
-    <listener-class>com.bdqn.model.global.SigninListener</listener-class>
+    <listener-class>com.bdqn.model.actionbiz.global.SigninListener</listener-class>
   </listener>
 </web-app>

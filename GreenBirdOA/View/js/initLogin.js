@@ -11,6 +11,11 @@ $.ajax({
             window.location.href="page-login.html";
         }else{
             div.innerHTML="欢迎"+data.userDepart+data.userName+"登录<br><a href='#' onclick='loginout()'>注销</a>";
+            if(data.userToDayIsSignin=="true"){
+                $("#isSignin").html("已签到");
+            }else{
+                $("#isSignin").html("未签到请及时签到");
+            }
         }
     },                          
     error: function (data) {    

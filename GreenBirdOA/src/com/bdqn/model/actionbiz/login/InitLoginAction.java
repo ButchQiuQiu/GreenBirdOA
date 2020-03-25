@@ -22,17 +22,18 @@ public class InitLoginAction extends InitLogin implements Action {
 			try {
 				writer = rep.getWriter();
 				HttpSession session= req.getSession(false);
-				if(session.getAttribute("user")!=null) {					
+				if(session!=null&&session.getAttribute("user")!=null) {					
 					UserDao ud=new UserDaoImpl();
 					User user=ud.GetUserByUser(session.getAttribute("user").toString());
 					this.returnIsTrue=true;
 					this.userName=user.getName();
 					this.userDepart=user.getFk_depart().getName();
+					this.userToDayIsSignin="未签到".equals(user.getLastsign())?false:true;
 				}else {
 					this.returnIsTrue=false;
 				}
-				JSONObject jobject=JSONObject.fromObject("{'returnIsTrue':'"+this.returnIsTrue+"',userName:'"+this.userName+"',userDepart:'"+this.userDepart+"'}");
-				System.out.println(jobject.toString());
+				JSONObject jobject=JSONObject.fromObject(
+						"{'returnIsTrue':'"+this.returnIsTrue+"',userName:'"+this.userName+"',userDepart:'"+this.userDepart+"',userToDayIsSignin:'"+this.userToDayIsSignin+"'}");
 				writer.write(jobject.toString());
 				writer.flush();
 				writer.close();
