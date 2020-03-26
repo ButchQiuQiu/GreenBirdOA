@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50530
 File Encoding         : 65001
 
-Date: 2020-03-24 21:04:29
+Date: 2020-03-26 11:44:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,15 +77,15 @@ CREATE TABLE `user` (
   `fk_jurisdiction` int(10) NOT NULL COMMENT '权限',
   `address` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '地址',
   `phone` int(11) NOT NULL COMMENT '手机号码',
-  `lastsign` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '最后一次签到的日期,服务器由此判断今天是否缺勤',
-  `absenteeism` int(10) NOT NULL COMMENT '缺勤的次数',
+  `lastsign` varchar(10) COLLATE utf8_bin NOT NULL DEFAULT '没签到' COMMENT '最后一次签到的日期,服务器由此判断今天是否缺勤',
+  `absenteeism` int(10) NOT NULL DEFAULT '0' COMMENT '缺勤的次数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '4', '3', '广州白云', '110110110', '2020-03-23', '0');
+INSERT INTO `user` VALUES ('1', 'Qiu123456', '123456', '球球', '4', '3', '广州白云', '110110110', '未签到', '3');
 
 -- ----------------------------
 -- Table structure for `workflow`
@@ -98,6 +98,7 @@ CREATE TABLE `workflow` (
   `fk_user_receiver` int(10) NOT NULL COMMENT '接收者的user外键id',
   `remark` varchar(1000) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '备注',
   `fk_flowstatus` int(10) NOT NULL COMMENT '工作流状态',
+  `createtime` varchar(10) COLLATE utf8_bin NOT NULL COMMENT '工作流创建的时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
