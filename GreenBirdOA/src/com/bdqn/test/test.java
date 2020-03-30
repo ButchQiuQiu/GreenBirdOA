@@ -4,9 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.bdqn.model.actionbiz.signin.Signin;
-import com.bdqn.model.data.bean.User;
-import com.bdqn.model.data.dao.impl.UserDaoImpl;
 
 public class test {
 	public static void main(String[] args) throws ParseException {

@@ -27,12 +27,12 @@ public class AllSigninThread extends Thread{
 					UserDao ud=new UserDaoImpl();
 					ud.setAllSign();
 					//完成签到换算后休眠1500毫秒以免计算太快时间还是前一天,然后重新计算下次签到点
-					Thread.sleep(1500);
+					Thread.sleep(15000);
 					AllSigninThread.checkAllSign=new SimpleDateFormat("yyyy-MM-dd").format(new Date())+" 23-59-59";
 					//
 				}else {
-					System.out.println("检测时间,当前时间是"+ft.format(new Date()));
-					System.out.println("下一个签到检查点的时间是:"+AllSigninThread.checkAllSign);
+//					System.out.println("检测时间,当前时间是"+ft.format(new Date()));
+//					System.out.println("下一个签到检查点的时间是:"+AllSigninThread.checkAllSign);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

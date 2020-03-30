@@ -16,7 +16,8 @@ public class SigninListener implements ServletContextListener {
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
-    public void contextDestroyed(ServletContextEvent sce)  { 
+    @SuppressWarnings("deprecation")
+	public void contextDestroyed(ServletContextEvent sce)  { 
     	as.stop();
     	System.out.println("服务器销毁");
     }

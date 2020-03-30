@@ -18,9 +18,9 @@ public class InitLoginAction extends InitLogin implements Action {
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse rep) {
-			PrintWriter writer;
+			
 			try {
-				writer = rep.getWriter();
+				PrintWriter writer = rep.getWriter();
 				HttpSession session= req.getSession(false);
 				if(session!=null&&session.getAttribute("user")!=null) {					
 					UserDao ud=new UserDaoImpl();
