@@ -1,3 +1,5 @@
-前端使用bootstrap,加一个阿三的angular模板还不会angular控制台疯狂报错2333反正没影响... table是用的bootstrap的dataTable,挺好用的排序搜索啥的都  有都不用自己写js了.
-  后端自己写的反射框架,后面换spring. 
+前端ui使用bootstrap,table是用的Jquery的dataTable,每个td都可以单独点击修改.这个东西太繁琐了,就个表格400行js...
+</br>通信使用的是ajax和json,后端json用apache的JsonLib解析封装
+</br>后端封装了JDBC,自己手搓了一个Dbutils...控制层也用反射搓了个简陋的框架.
+    
   
