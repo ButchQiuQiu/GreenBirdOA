@@ -22,8 +22,7 @@ public class EditUserAction extends EditUser {
 		if("人事部".equals(user.getFk_depart().getName())||"管理层".equals(user.getFk_depart().getName())) {
 			//权限判定,自己的权限必须得大于或者等于修改的用户
 			if(user.getFk_jurisdiction().getId()>=ud.GetUserByUser(req.getParameter("user")).getFk_jurisdiction().getId()) {
-				
-				this.returnIsTrue=ud.editUser(req.getParameter("user"),req.getParameter("key"),req.getParameter("value"));
+				//修改权限判定,如果修改的是权限那么权限必须小于发起者的权限
 			}
 		}
 		try {

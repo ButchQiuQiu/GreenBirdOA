@@ -19,7 +19,10 @@ public class DeleteUserAction extends DeleteUser {
 		UserDao ud=new UserDaoImpl();
 		User user=ud.GetUserByUser(req.getSession().getAttribute("user").toString());
 		if("人事部".equals(user.getFk_depart().getName())||"管理层".equals(user.getFk_depart().getName())) {
-			this.returnIsTrue=ud.deleteUser(req.getParameter("user"));
+			//不能删除自己
+			if(user.getUser().equals(req.getParameter("user"))==false) {
+				this.returnIsTrue=ud.deleteUser(req.getParameter("user"));
+			}
 		}
 		try {
 			PrintWriter writer = rep.getWriter();

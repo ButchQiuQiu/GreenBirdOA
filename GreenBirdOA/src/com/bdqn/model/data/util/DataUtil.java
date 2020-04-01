@@ -22,9 +22,9 @@ public final class DataUtil {
 		public static Connection getConnection()  {
 			try {
 				Connection con=DataUtil.dataSource.getConnection();
-				System.out.println("最大连接数"+DataUtil.dataSource.getMaxPoolSize()+"最小连接数"+DataUtil.dataSource.getMinPoolSize()+
-				"正在使用连接数"+DataUtil.dataSource.getNumBusyConnections()+"空闲连接数"+DataUtil.dataSource.getNumIdleConnections()+
-				"总连接数"+DataUtil.dataSource.getNumConnections());
+//				System.out.println("最大连接数"+DataUtil.dataSource.getMaxPoolSize()+"最小连接数"+DataUtil.dataSource.getMinPoolSize()+
+//				"正在使用连接数"+DataUtil.dataSource.getNumBusyConnections()+"空闲连接数"+DataUtil.dataSource.getNumIdleConnections()+
+//				"总连接数"+DataUtil.dataSource.getNumConnections());
 				return con;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
