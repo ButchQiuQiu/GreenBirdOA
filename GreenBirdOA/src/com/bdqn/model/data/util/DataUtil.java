@@ -6,21 +6,54 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
 //不用创建实例的静态工具类 包括底层数据操作
 public final class DataUtil {
-	public static String ConStr="jdbc:mysql://localhost:3306/greenbirdoa?characterEncoding=utf-8",
-			  User="root",
-			  Pwd="199598";
-//	private static final String ConStr="jdbc:mysql://192.168.43.162:3306/exam?characterEncoding=utf-8",
-//			  User="root",
-//			  Pwd="";
+//连接池--------------------------------------------------------------------------------------------------
+	//启动c3p0连接池
+	private static ComboPooledDataSource dataSource=new ComboPooledDataSource("mysql");
+	//返回连接池分配的Connection
+		public static Connection getConnection()  {
+			try {
+				Connection con=DataUtil.dataSource.getConnection();
+				System.out.println("最大连接数"+DataUtil.dataSource.getMaxPoolSize()+"最小连接数"+DataUtil.dataSource.getMinPoolSize()+
+				"正在使用连接数"+DataUtil.dataSource.getNumBusyConnections()+"空闲连接数"+DataUtil.dataSource.getNumIdleConnections()+
+				"总连接数"+DataUtil.dataSource.getNumConnections());
+				return con;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		//断开连接
+		public static void closeConnection(Connection con,PreparedStatement pstm,ResultSet rs) throws Exception {
+			if(con!=null) {
+				con.close();
+			}
+			if(pstm!=null) {
+				pstm.close();
+			}
+			if(rs!=null) {
+				rs.close();
+			}
+		}
+//连接池--------------------------------------------------------------------------------------------------
+	
+/** 自己封装的简陋jdbc
+ * 
+		public static String ConStr="jdbc:mysql://localhost:3306/greenbirdoa?characterEncoding=utf-8",
+		  User="root",
+		  Pwd="199598";
 	
 	//连接程序默认的数据库
-	public static Connection GetDefaultConnection() throws Exception {
+	public static Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con=null;
 		con=DriverManager.getConnection(DataUtil.ConStr,DataUtil.User,DataUtil.Pwd);
@@ -28,7 +61,7 @@ public final class DataUtil {
 	}
 	
 	//断开连接
-	public static void CloseConnection(Connection con,PreparedStatement pstm,ResultSet rs) throws Exception {
+	public static void closeConnection(Connection con,PreparedStatement pstm,ResultSet rs) throws Exception {
 		if(con!=null) {
 			con.close();
 		}
@@ -39,13 +72,18 @@ public final class DataUtil {
 			rs.close();
 		}
 	}
-	
+*/
+		
+//自己搓的类Dbuntil框架可以组合成一个通用Impl类来减少代码的重复量------------------------------------------------
+//通用类仅为静态函数,多实例也不会浪费内存.
+		
 	//sql查询  按照Field集合返回一个已经进行数据赋值封装后的实体类集合  参数:sql,占位对象集,反射类
+	//表中外键已经能迭代计算,表中的外键格式为:fk_外键表名_可有可无,第2个下划线后之后的可有可无主要应对表中2个外键字段来自一张表
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static <T>List<T> ExecuteQueryBySql(Class<?> cs,String sql,Object... values) throws Exception {
 		List<T> beans=new ArrayList<T>();
 		Field fields[]=cs.getDeclaredFields();
-		Connection con=DataUtil.GetDefaultConnection();
+		Connection con=DataUtil.getConnection();
 		PreparedStatement pstm=con.prepareStatement(sql);
 		if(values!=null) {
 			for(int k=1;k<=values.length;k++) {
@@ -90,13 +128,13 @@ public final class DataUtil {
 			//把实体类加入进集合
 			beans.add((T) bean);
 		}
-		DataUtil.CloseConnection(con, pstm, rs);
+		DataUtil.closeConnection(con, pstm, rs);
 		return beans;
 	}
 	
-	// 增删改基础
+	// 增删改
 	public static int ExcuteUpdateBySql(String sql,Object... values) throws Exception {
-		Connection con=DataUtil.GetDefaultConnection();
+		Connection con=DataUtil.getConnection();
 		PreparedStatement pstm= con.prepareStatement(sql);
 		if(values!=null) {
 			for(int k=1;k<=values.length;k++) {
@@ -104,7 +142,7 @@ public final class DataUtil {
 			}
 		}
 		int re=pstm.executeUpdate();
-		DataUtil.CloseConnection(con, pstm, null);
+		DataUtil.closeConnection(con, pstm, null);
 		return re;
 	}
 	
@@ -117,6 +155,7 @@ public final class DataUtil {
 		}
 		return false;
 	}
+	
 	//反射
 	//获取实体类的所有属性名(去除tablename 需要传入实现类的superclass())
 	@SuppressWarnings({ "rawtypes", "unused", "deprecation" })
@@ -144,14 +183,12 @@ public final class DataUtil {
 		return "get"+new String(temp);
 	}
 	
-	
 	//把传入的属性名转换为eclipse的默认封装名 Set
 	public static String GetSetMethodNameForEclipseEncap(String fieldname) {
 		char[] temp=fieldname.toCharArray();
 		temp[0]=Character.toUpperCase(temp[0]);
 		return "set"+new String(temp);
 	}
-	
 	
 	//使用class的某个函数 仅传入一个data参数 参数:方法名,参数,传参bean
 	public static Object invokeByMethodName(String MethodName,Object data,Object bean) {

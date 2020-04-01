@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+<!-- 默认的连接配置 -->
+  <default-config>
+    <property name="automaticTestTable">con_test</property>
+    <property name="checkoutTimeout">30000</property>
+    <property name="idleConnectionTestPeriod">30</property>
+    <property name="initialPoolSize">10</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">100</property>
+    <property name="minPoolSize">20</property>
+    <property name="maxStatements">200</property>
+  </default-config>
+  <!-- 指定连接mysql的配置 -->
+  <named-config name="mysql"> 
+    <property name="maxPoolSize">120</property>
+    <property name="minPoolSize">30</property>
+     <!-- 指定连接mysql的驱动，url,账号，密码 -->
+    <property name="driverClass">com.mysql.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/greenbirdoa?characterEncoding=utf-8</property>
+    <property name="user">root</property>
+    <property name="password">199598</property>
+  </named-config>
+</c3p0-config>
