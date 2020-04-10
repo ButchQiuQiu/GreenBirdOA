@@ -109,7 +109,7 @@ public final class DataUtil {
 						fkClassName=fkClassName.substring(0,fkClassName.indexOf('_'));
 					}
 					//把fkClassName变成带包名的类名全称
-					fkClassName=cs.getPackageName()+"."+fkClassName.substring(0,1).toUpperCase()+fkClassName.substring(1);
+					fkClassName=cs.getPackage().getName()+"."+fkClassName.substring(0,1).toUpperCase()+fkClassName.substring(1);
 					//利用反射获取外键类对应的表名
 					String fkTableName=(String)Class.forName(fkClassName).getField("tablename").get(null);
 					//迭代计算出这外键表对象

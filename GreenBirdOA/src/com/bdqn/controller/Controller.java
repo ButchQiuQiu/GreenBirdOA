@@ -39,7 +39,7 @@ public class Controller extends HttpServlet {
 			String toPath=action.execute(request, response);
 			if(toPath!=null) {
 				request.getRequestDispatcher(toPath).forward(request, response);
-			}
+			} 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

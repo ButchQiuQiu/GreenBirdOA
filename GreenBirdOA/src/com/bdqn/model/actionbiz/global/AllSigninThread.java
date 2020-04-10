@@ -31,8 +31,8 @@ public class AllSigninThread extends Thread{
 					AllSigninThread.checkAllSign=new SimpleDateFormat("yyyy-MM-dd").format(new Date())+" 23-59-59";
 					//
 				}else {
-//					System.out.println("检测时间,当前时间是"+ft.format(new Date()));
-//					System.out.println("下一个签到检查点的时间是:"+AllSigninThread.checkAllSign);
+					System.out.println("检测时间,当前时间是"+ft.format(new Date()));
+					System.out.println("下一个签到检查点的时间是:"+AllSigninThread.checkAllSign);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
