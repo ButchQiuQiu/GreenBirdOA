@@ -8,7 +8,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.butch</groupId>
-	<artifactId>GreenBirdOA</artifactId>
+	<artifactId>greenbirdoa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>一个security的测试项目</description>

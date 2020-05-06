@@ -1,8 +1,8 @@
 package com.butch.spring_security_demo;
 
-import com.butch.spring_security_demo.bean.MyResourceBean;
-import com.butch.spring_security_demo.mapper.MyResourceBeanMapper;
-import com.butch.spring_security_demo.mapper.MyUserBeanMapper;
+import com.butch.greenbirdoa.mapper.MyResourceBeanMapper;
+import com.butch.greenbirdoa.mapper.MyUserBeanMapper;
+import com.butch.greenbirdoa.pojo.MyResourceBean;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
