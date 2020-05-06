@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+
+
+</head>
+
+<body class="bg-dark">
+
+
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content"  alt="">
+                    </a>
+                </div>
+                <div class="login-form">
+                    <form>
+                        <div class="form-group">
+                            <label>账号</label>
+                            <input id="user" type="text" class="form-control" placeholder="账号">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input id="pwd" type="password" class="form-control" placeholder="密码">
+                        </div>
+                        
+                        <button type="button" class="btn btn-outline-success btn-lg btn-block" onclick="login()" style="border-color: green;border-width: 1px;border-style: solid;">登录</button>
+
+                        <div class="register-link m-t-15 text-center">
+                            <p>账号由上级创建和找回 </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.4.1.js"></script>
+    <script>
+    	document.onkeydown=function(event){
+           if(event.key=="Enter"){
+                login();
+           } 
+        };
+        function login(){
+            var user=document.getElementById("user").value;
+            var pwd=document.getElementById("pwd").value;
+            $.ajax({
+                    url: "login_UserIsTrue.do",           //请求的url
+                    type: "POST",               //请求方式get，post
+                    data: {"user":user,"pwd":pwd},            //传递给服务器的数据
+                    dataType:"json",           //返回的数据类型为文本
+                    success:function(data){
+                        if(data.returnIsTrue=="true"){
+                            alert("登录成功");
+                            location.href="index.html";
+                        }else{
+                        	alert("账号密码错误");
+                        }
+                    },              //成功后
+                    error: function (data) {    //返回错误后的处理
+                        alert("登录出错");
+                    }
+                });
+        }
+    </script>
+
+
+</body>
+
+</html>

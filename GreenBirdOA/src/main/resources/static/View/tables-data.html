@@ -1,0 +1,520 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <!-- <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css"> -->
+    <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+
+</head>
+
+<body>
+    <!-- Left Panel -->
+
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><span class="badge badge-pill badge-success">绿鸟管理系统</span>
+                    <alt="Logo">
+                </a>
+                <a class="navbar-brand hidden" href="./"><span class="badge badge-pill badge-success">绿</span>
+                    <lt="Logo">
+                </a>
+            </div>
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="index.html"><i class="menu-icon fa fa-glass"></i>签到 </a>
+                    </li>
+                    <h3 class="menu-title">工作</h3><!-- /.menu-title -->
+                    <li><a href="#"><i class="menu-icon fa fa-laptop"></i>工作流</a></li>
+                    <li class="active"><a href="tables-data.html"><i class="menu-icon fa fa-table"></i>管理</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="breadcrumbs">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <a id="menuToggle" class="menutoggle pull-left" style="margin-left:-120%"><i
+                                class="fa fa fa-tasks"></i></a>
+                        <div class="page-title">
+                        </div>
+                    </div>
+                    <div id="initLogin" style="font-size: 1rem;"></div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol id="isSignin" class="breadcrumb text-right">
+
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header><!-- /header -->
+        <!-- Header-->
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">人事管理</strong>
+                                <button id="tableRefresh" type="button" class="btn btn-warning"
+                                    style="float: right;">重新排序</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="addUserTr" type="button" class="btn btn-primary"
+                                    style="float: right;">添加员工</button>
+                            </div>
+                            <div class="card-body">
+                                <table id="bootstrap-data-table-export"
+                                    class="table table-striped table-bordered table-responsive ">
+                                    <thead>
+                                        <tr>
+                                            <th dataColName="name">姓名</th>
+                                            <th dataColName="user">账号</th>
+                                            <th dataColName="pwd">密码</th>
+                                            <th dataColName="fk_sex">性别</th>
+                                            <th dataColName="address">地址</th>
+                                            <th dataColName="phone">手机</th>
+                                            <th dataColName="lastsign">今日签到</th>
+                                            <th dataColName="absenteeism">缺勤次数</th>
+                                            <th dataColName="salary">工资</th>
+                                            <th dataColName="fk_depart">部门</th>
+                                            <th dataColName="fk_jurisdiction">职位</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </div><!-- /#right-panel -->
+    <!-- Right Panel -->
+    <!-- select
+        <option>男性</option>
+        <option>女性</option>
+    </select>
+    <select>
+        <option>研发部</option>
+        <option>人事部</option>
+        <option>董事长</option>
+    </select>
+    <select>
+        <option>普通职员</option>
+        <option>部门领导</option>
+        <option>董事长</option>
+    </select> -->
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <!-- 表格的样式 -->
+    <style>
+        td:hover {
+            background-color: dimgray;
+        }
+
+        .dataTableTdClass {
+            width: 100%;
+        }
+    </style>
+    <script src="js/jquery-3.4.1.js"></script>
+    <!-- Jquery的官方cdn加速 -->
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+    <!--导入初始化登录文件 绑定一个id为initlogin的div-->
+    <script src="js/initLogin.js"></script>
+    <script>
+        $(function () {
+            //查询所有用户
+            queryUser();
+            //绑定添加员工事件
+            $("#addUserTr").click(function () {
+                $("table").dataTable().fnDestroy();
+                var addButton = "<button id='addButton' type='button' class='btn btn-success'>添加</button>";
+                var deleteTrButton = "<button id='deleteTrButton' type='button' class='btn btn-danger'>放弃</button>";
+                $("tbody").prepend("<tr role='row' class='odd'><td></td><td></td><td></td><td fk_id=1>男性</td><td></td><td></td><td></td><td></td><td></td><td fk_id=1>营销部</td><td fk_id=1>普通职员</td><td>" + addButton + deleteTrButton + "</td></tr>");
+                //添加按钮
+                $("#addButton").click(function () {
+                    //前端判断(用户必须得把所有的编辑完成)
+                    if($(this).parents("tr").find("#editButton").length>0||$(this).parents("tr").html().indexOf("<td></td>")!=-1||$(this).parents("tr").html().indexOf("<td isclick=\"false\"></td>")!=-1){
+                        alert("请完成这位用户所有未编辑完的项目,同时也不能留下空信息!!!");
+                        return;
+                    }
+                    //添加成功后
+                    if (addUser($(this).parents("tr"))==true) {
+                        $(this).parent("td").html("<button type='button' class='btn btn-danger'>删除</button>");
+                    }
+                });
+                //放弃按钮
+                $("#deleteTrButton").click(function () {
+                    $("table").dataTable().fnDestroy();
+                    $(this).parents("tr").remove();
+                    tableInit("table");
+                });
+                tableInit("table");
+            });
+            //绑定刷新按钮
+            $("#tableRefresh").click(function () {
+                tableRefresh("table");
+            });
+            //表格只要点击就绑定td
+            $(".card-body").unbind("click").click(function () {
+                tdReady();
+            });
+        }).ready();
+        //给所有td添加事件让其初始化
+        //tdReady td的初始化
+        function tdReady() {
+            //删除按钮
+            $("button:contains(删除)").unbind("click").click(function () {
+                //前端判断(用户必须得把所有的编辑完成)
+                if($(this).parents("tr").find("#editButton").length>0){
+                        alert("请完成这位用户所有未编辑完的项目!!!");
+                        return;
+                    }
+                if(confirm("是否删除这个员工???")){
+                    if (deleteUser($(this).parents("tr"))) {
+                        $("table").dataTable().fnDestroy();
+                        $(this).parents("tr").remove();
+                        tableInit("table");
+                    }
+                }
+            });
+            //完成按钮
+            $("td").unbind("click").click(function () {
+                //账号不能修改的条件(在数据库的用户)
+                if ($(this).attr("isClick") != "true"&&(($("th[dataColName=user]")[0].cellIndex!=$(this)[0].cellIndex)||$(this).parent("tr").find("#addButton").length==1)) {
+                    var html = $(this).html();
+                    //完成按钮
+                    var defaluButton = "<button type='button' id='editButton' class='btn btn-outline-success dataTableTdClass'>完成</button>";
+                    //数字框
+                    var numberText = "<input class='dataTableTdClass' type='number' value='" + html + "'/>" + defaluButton;
+                    //普通的文本框
+                    var defaluText = "<input class='dataTableTdClass' type='text'  value='" + html + "'/>" + defaluButton;
+                    //需要只能输入数字的元素
+                    var dataColName = $("th").eq($(this)[0].cellIndex).attr("dataColName");
+                    //删除按钮无视
+                    if (dataColName == undefined) {
+                        return;
+                    }
+                    //数字输入框
+                    else if (dataColName == "absenteeism" || dataColName == "salary" || dataColName == "phone") {
+                        $(this).html(numberText);
+                    }
+                    //select按钮只需要添加一个按钮
+                    else if (dataColName.indexOf("fk_") == 0) {
+                        var selectHtml;
+                        //分开不同的fk生成已选中的option
+                        switch (dataColName) {
+                            case "fk_sex":
+                                selectHtml = selects[0].replace(">" + $(this).text() + "<", "selected='selected'>" + $(this).text() + "<");
+                                break;
+                            case "fk_depart":
+                                selectHtml = selects[1].replace(">" + $(this).text() + "<", "selected='selected'>" + $(this).text() + "<");
+                                break;
+                            case "fk_jurisdiction":
+                                selectHtml = selects[2].replace(">" + $(this).text() + "<", "selected='selected'>" + $(this).text() + "<");
+                                break;
+                        }
+                        $(this).html(selectHtml + defaluButton);
+                        $(this).children("select").change(function(){
+                            $(this).parents("td").attr("fk_id",$(this).val());
+                        });
+                    }
+                    //普通的输入框
+                    else {
+                        $(this).html(defaluText);
+                    }
+                    $(this).attr("isClick", "true");
+                    //添加编辑完成按钮
+                    $(this).children("button").unbind("click").click(function () {
+                        //如果是添加状态的化就绑定空事件
+                        //如果不是添加状态就发送请求,请求失败直接return
+                        var td = $(this).parents("td");
+                        var value = td.children("input").val();
+                        //后端响应判断
+                        if($(this).parents("tr").find("#addButton").length==0){
+                            if(editUser(td)==false){
+                                return;
+                            }
+                        }
+                        //前端响应
+                        if ($(this).parent().attr("isClick") == "true") {
+                            if ($("th").eq(td[0].cellIndex).attr("dataColName").indexOf("fk_") == 0) {
+                                td.html(td.find("option:selected").text());              //select的td
+                            } else {
+                                td.html(value);                          //text的td
+                            }
+                            //加上个异步sleep否则会多造成一次迭代
+                            (async function () {
+                                sleep(100).then(() => {
+                                    td.attr("isClick", "false");
+                                    //刷新和处理bug
+                                    // tableRefresh("table");
+                                });
+                            })();
+                        }
+                    });
+                }
+            });
+        }
+        //TD的初始化---------------------------------------------------------------------------------------------------
+
+        //Ajax与后端通信-----------------------------------------------------------------------------------------------
+        //增加一个用户
+        function addUser(tr) {
+            var td=tr.find("td");
+            var json={
+                name:td.eq($("th[dataColName=name]")[0].cellIndex).text(),
+                user:td.eq($("th[dataColName=user]")[0].cellIndex).text(),
+                pwd:td.eq($("th[dataColName=pwd]")[0].cellIndex).text(),
+                fk_sex:td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
+                address:td.eq($("th[dataColName=address]")[0].cellIndex).text(),
+                phone:td.eq($("th[dataColName=phone]")[0].cellIndex).text(),
+                lastsign:td.eq($("th[dataColName=lastsign]")[0].cellIndex).text(),
+                absenteeism:td.eq($("th[dataColName=absenteeism]")[0].cellIndex).text(),
+                salary:td.eq($("th[dataColName=salary]")[0].cellIndex).text(),
+                fk_depart:td.eq($("th[dataColName=fk_depart]")[0].cellIndex).attr("fk_id"),
+                fk_jurisdiction:td.eq($("th[dataColName=fk_jurisdiction]")[0].cellIndex).attr("fk_id")
+            };
+            var Return=false;
+            $.ajax({
+                async:false,                 //添加必须为非异步
+                url: "manage_AddUser.do",    //请求的url
+                type: "post",               //请求方式get，post          
+                data: json,                 //传递给服务器的数据
+                dataType: "json",           //返回的数据类型为文本
+                success: function (data) {
+                    if (data.returnIsTrue == "true") {
+                        alert("添加成功");
+                        Return= true;
+                    } else {
+                        alert("添加失败,权限不够或者账号已存在!!!");
+                        Return= false;
+                    }
+                },
+                error: function (data) {
+                    alert("添加失败,与服务器连接出错!");
+                    Return= false;
+                }
+            });
+            return Return;
+        }
+
+        //删除一个用户
+        function deleteUser(tr) {
+            var Return=false;
+            var td=tr.find("td");
+            var json={
+                user:td.eq($("th[dataColName=user]")[0].cellIndex).text(),
+            };
+            $.ajax({
+                async:false,                     //添加必须为非异步
+                url: "manage_DeleteUser.do",    //请求的url
+                type: "post",               //请求方式get，post
+                data: json,                 //传递给服务器的数据
+                dataType: "json",           //返回的数据类型为文本
+                success: function (data) {
+                    if (data.returnIsTrue == "true") {
+                        alert("删除成功");
+                        Return= true;
+                    } else {
+                        alert("删除失败,权限不够!!!");
+                        Return= false;
+                    }
+                },
+                error: function (data) {
+                    alert("删除失败,与服务器连接出错!");
+                    Return= false;
+                }
+            });
+            return Return;
+        }
+
+        //修改用户的其中一项
+        function editUser(td) {
+            var json={
+                user:td.siblings("td").eq($("th[dataColName=user]")[0].cellIndex).text(),
+                key:$("th").eq(td[0].cellIndex).attr("dataColName"),
+                value:td.children().eq(0).val()
+            };
+            var Return=false;
+            $.ajax({
+                async:false,                 //添加必须为非异步
+                url: "manage_EditUser.do",    //请求的url
+                type: "post",               //请求方式get，post          
+                data: json,                 //传递给服务器的数据
+                dataType: "json",           //返回的数据类型为文本
+                success: function (data) {
+                    if (data.returnIsTrue == "true") {
+                        Return= true;
+                    } else {
+                        alert("修改失败权限不够!!!");
+                        Return= false;
+                    }
+                },
+                error: function (data) {
+                    alert("修改失败,与服务器连接出错!");
+                    Return= false;
+                }
+            });
+            return Return;
+        }
+
+        //查询所有用户---------------------------------------------------------------------------------------------------------------------
+        function queryUser() {
+            $.ajax({
+                async:false,
+                url: "manage_QueryUser.do", //请求的url
+                type: "post",               //请求方式get，post
+                data: null,                 //传递给服务器的数据
+                dataType: "json",           //返回的数据类型为文本
+                success: function (data) {
+                    initFk(data);
+                    for (var i = 3; i < data.length; i++) {
+                        // $("table").append("<tr></tr>");
+                        var html = "<tr>";
+                        //从左往右遍历每一列
+                        $("th").each(function () {
+                            var th = $(this);
+                            //遍历data[i]这个json对象的每一个key
+                            $.each(data[i], function (key) {
+                                //如果key与数据库列名相等的话就是对应的那一列
+                                if (key == th.attr("dataColName")) {
+                                    //user表里外键的判断fk开头就是外键,子表详细描述都是fk开头
+                                    if (th.attr("dataColName").indexOf("fk") == 0) {
+                                        //分开不同的fk生成已选中的option
+                                        html += "<td fk_id='"+data[i][key].id+"'>" + data[i][key].name + "</td>";
+                                    } else {
+                                        html += "<td>" + data[i][key] + "</td>";
+                                    }
+                                }
+                            });
+                            //操作列默认为删除按钮
+                            if (th.text() == "操作") {
+                                html += "<td>" + "<button type='button' class='btn btn-danger'>删除</button>" + "</td>";
+                            }
+                        });
+                        html += "</tr>";
+                        $("tbody").append(html);
+                    }
+                    //初始化table
+                    tableInit("table");
+                },
+                error: function (data) {
+                    alert("与服务器连接出错!表格加载失败");
+                }
+            });
+        }
+        //这三个变量代表fk列所对应的下拉框html字符串
+        //顺序 分别是fk_sex,fk_depart,fk_jurisdiction的字符串html
+        var selects = new Array();
+        function initFk(data) {
+            for (var k = 0; k < 3; k++) {
+                selects[k] = "<select>"
+                for (var i = 0; i < data[k].length; i++) {
+                    selects[k] += "<option value='" + data[k][i].id + "'>" + data[k][i].name + "</option>"
+                }
+                selects[k] += "</select>";
+            }
+        }
+
+        //Ajax与后端通信----------------------------------------------------------------------------------------------
+
+        //封装Jquery的初始化
+        function tableInit(table) {
+            $(table).dataTable({
+                // "bStateSave": true, //保存状态到cookie *************** 很重要 ， 当搜索的时候页面一刷新会导致搜索的消失。使用这个属性就可避免了
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    }
+                }
+            });
+            //初始化后也绑定td
+            tdReady();
+        }
+
+        //刷新原理是销毁dataTable的数据然后再重新初始化,这个过程html的table是不变的
+        function tableRefresh(table) {
+            $(table).dataTable().fnDestroy();
+            tableInit(table);
+        }
+
+        //封装系统的sleep
+        function sleep(time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: root
+    password: 199598
+    url: jdbc:mysql://localhost:3306/myauthorization?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  #别名
+  type-aliases-package: com.butch.spring_security_demo.bean
+  #mapper.xml所在的位置
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml

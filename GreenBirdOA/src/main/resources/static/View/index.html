@@ -1,0 +1,162 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>绿鸟管理系统</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css">
+
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+</head>
+
+<body>
+
+
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><span class="badge badge-pill badge-success">绿鸟管理系统</span>
+                    <alt="Logo">
+                </a>
+                <a class="navbar-brand hidden" href="./"><span class="badge badge-pill badge-success">绿</span>
+                    <lt="Logo">
+                </a>
+            </div>
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="menu-icon fa fa-glass"></i>签到 </a>
+                    </li>
+                    <h3 class="menu-title">工作</h3><!-- /.menu-title -->
+                    <!--<li><a href="#"><i class="menu-icon fa fa-laptop"></i>工作流</a></li>-->
+                    <li><a href="tables-data.html"><i class="menu-icon fa fa-table"></i>管理</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <div class="page-title">
+                    </div>
+                </div>
+
+                <div id="initLogin" style="font-size: 1rem;"></div>
+
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol id="isSignin" class="breadcrumb text-right">
+                            
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <div class="col-sm-12 text-center" style="padding-top: 10%;">
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" onclick="signin()">签到</button>
+            </div>
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <script src="vendors/chart.js/dist/Chart.bundle.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/widgets.js"></script>
+    <script src="vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    
+    
+	<!--导入初始化登录文件 绑定一个id为initlogin的div-->
+    <script src="js/initLogin.js"></script>
+    <script>
+        (function ($) {
+            "use strict";
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#1de9b6',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: ['#1de9b6', '#03a9f5'],
+                normalizeFunction: 'polynomial'
+            });
+        })(jQuery);
+    </script>
+    
+
+    <script>
+
+        //签到
+        function signin() {
+            $.ajax({
+                url: "signin_Signin.do",    //请求的url
+                type: "post",               //请求方式get，post
+                data: null,                 //传递给服务器的数据
+                dataType: "json",           //返回的数据类型为文本
+                success: function (data) {
+                  if(data.returnIsTrue=="true"){
+                    alert("签到成功");
+                    $("#isSignin").html("已签到");
+                  }else{
+                      alert("签到失败");
+                  }
+                },
+                error: function (data) {
+                    alert("与服务器连接出错!");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
