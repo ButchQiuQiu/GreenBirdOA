@@ -1,9 +1,6 @@
 package com.butch.greenbirdoa;
 
-import com.butch.greenbirdoa.mapper.MyResourceBeanMapper;
 import com.butch.greenbirdoa.mapper.UserMapper;
-import com.butch.greenbirdoa.pojo.MyResourceBean;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
