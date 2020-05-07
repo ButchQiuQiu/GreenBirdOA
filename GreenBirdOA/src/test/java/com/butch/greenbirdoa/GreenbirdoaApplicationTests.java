@@ -14,16 +14,10 @@ class GreenbirdoaApplicationTests {
 
 	@Autowired 
 	UserMapper UserMapper;
-	@Autowired
-	MyResourceBeanMapper myResourceBeanMapper ;
 	
 	@Test
 	void contextLoads() {
-		// System.out.println(myUserBeanMapper.selectByUsername("super").getPassword());
-		for (MyResourceBean myResourceBean : myResourceBeanMapper.selectAllResource()) {
-			System.out.println(myResourceBean.toString());
-		}
-				
+		System.out.println(UserMapper.getUserByUsername("Qiu123456").toString());
 	}
 	//加密密码
 	@Test

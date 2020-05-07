@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
  /**
   * 用户表实现UserDetails接口
   */
@@ -144,6 +145,13 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "User [absenteeism=" + absenteeism + ", address=" + address + ", fk_jurisdiction=" + fk_jurisdiction
+				+ ", fk_sex=" + fk_sex + ", lastsign=" + lastsign + ", name=" + name + ", password=" + password
+				+ ", phone=" + phone + ", salary=" + salary + ", username=" + username + "]";
 	}
 	
 	
