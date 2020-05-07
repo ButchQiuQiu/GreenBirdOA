@@ -1,6 +1,4 @@
-package com.bdqn.model.actionbiz.login;
-
-import com.bdqn.controller.Action;
+package com.butch.greenbirdoa.model.actionbiz.login;
 
 //没有传入值,前端请求后端查找session中的user值,是否已经登录过
 public abstract class InitLogin implements Action{

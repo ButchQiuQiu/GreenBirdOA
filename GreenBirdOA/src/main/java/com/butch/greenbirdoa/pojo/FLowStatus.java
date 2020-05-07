@@ -6,7 +6,6 @@ public class FLowStatus {
 	private String status;
 	public FLowStatus() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public FLowStatus(Integer id, String status) {
 		super();

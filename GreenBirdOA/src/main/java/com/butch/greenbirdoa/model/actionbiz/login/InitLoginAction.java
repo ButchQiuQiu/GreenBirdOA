@@ -1,4 +1,4 @@
-package com.bdqn.model.actionbiz.login;
+package com.butch.greenbirdoa.model.actionbiz.login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.bdqn.controller.Action;
-import com.bdqn.model.data.bean.User;
-import com.bdqn.model.data.dao.UserDao;
-import com.bdqn.model.data.dao.impl.UserDaoImpl;
+import com.butch.greenbirdoa.model.data.dao.UserDao;
+import com.butch.greenbirdoa.model.data.dao.impl.UserDaoImpl;
 
 import net.sf.json.JSONObject;
 

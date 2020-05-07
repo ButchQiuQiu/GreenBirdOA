@@ -6,7 +6,6 @@ public class Jurisdiction {
 	private String name;
 	public Jurisdiction() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Jurisdiction(Integer id, String name) {
 		super();

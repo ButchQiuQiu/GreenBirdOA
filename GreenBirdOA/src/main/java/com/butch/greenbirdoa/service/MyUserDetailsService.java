@@ -1,7 +1,7 @@
 package com.butch.greenbirdoa.service;
 
 import com.butch.greenbirdoa.mapper.MyUserBeanMapper;
-import com.butch.greenbirdoa.pojo.MyUserBean;
+import com.butch.greenbirdoa.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MyUserBean userBean=mapper.selectByUsername(username);
+        User userBean=mapper.GetUserByUsername(username);
         if(userBean==null){
             throw new UsernameNotFoundException("数据库中没有此用户");
         }

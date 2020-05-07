@@ -6,7 +6,6 @@ public class Depart {
 	private String name;
 	public Depart() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Depart(Integer id, String name) {
 		super();
