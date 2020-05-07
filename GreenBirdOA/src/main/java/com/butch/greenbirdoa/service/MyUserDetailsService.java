@@ -1,6 +1,6 @@
 package com.butch.greenbirdoa.service;
 
-import com.butch.greenbirdoa.mapper.MyUserBeanMapper;
+import com.butch.greenbirdoa.mapper.UserMapper;
 import com.butch.greenbirdoa.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    MyUserBeanMapper mapper;
+    UserMapper mapper;
     
     /** 
      * @param username:用户名
