@@ -6,7 +6,6 @@ public class Sex {
 	private String name;
 	public Sex() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Integer getId() {

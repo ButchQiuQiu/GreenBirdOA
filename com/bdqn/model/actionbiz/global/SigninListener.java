@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.model.actionbiz.global;
+package com.bdqn.model.actionbiz.global;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

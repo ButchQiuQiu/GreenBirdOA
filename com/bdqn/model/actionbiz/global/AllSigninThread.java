@@ -1,7 +1,10 @@
-package com.butch.greenbirdoa.model.actionbiz.global;
+package com.bdqn.model.actionbiz.global;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.bdqn.model.data.dao.UserDao;
+import com.bdqn.model.data.dao.impl.UserDaoImpl;
 
 /**
  * @author QiuQiu
