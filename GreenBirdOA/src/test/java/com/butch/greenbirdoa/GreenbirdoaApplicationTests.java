@@ -1,7 +1,7 @@
-package com.butch.spring_security_demo;
+package com.butch.greenbirdoa;
 
 import com.butch.greenbirdoa.mapper.MyResourceBeanMapper;
-import com.butch.greenbirdoa.mapper.MyUserBeanMapper;
+import com.butch.greenbirdoa.mapper.UserMapper;
 import com.butch.greenbirdoa.pojo.MyResourceBean;
 
 import org.junit.jupiter.api.Test;
@@ -10,10 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
-class DemoApplicationTests {
+class GreenbirdoaApplicationTests {
 
-	@Autowired
-	MyUserBeanMapper myUserBeanMapper;
+	@Autowired 
+	UserMapper UserMapper;
 	@Autowired
 	MyResourceBeanMapper myResourceBeanMapper ;
 	
@@ -26,13 +26,9 @@ class DemoApplicationTests {
 				
 	}
 	//加密密码
-	public static String generatePassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-	}
-
 	@Test
     void pwd() {
-        System.out.println(generatePassword("pwd"));
+        System.out.println(new BCryptPasswordEncoder().encode(""));
     }
 
 }

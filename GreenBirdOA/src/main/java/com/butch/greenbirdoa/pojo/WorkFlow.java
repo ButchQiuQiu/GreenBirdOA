@@ -9,7 +9,6 @@ public class WorkFlow {
 	private FLowStatus fk_flowstatus;
 	public WorkFlow() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public WorkFlow(Integer id, String message, User fk_user_initiator, User fk_user_receiver,
 			FLowStatus fk_flowstatus) {
