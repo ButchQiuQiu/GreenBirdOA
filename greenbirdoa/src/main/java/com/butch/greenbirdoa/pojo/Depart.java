@@ -1,7 +1,14 @@
 package com.butch.greenbirdoa.pojo;
 
-public class Depart {
-	public static String tablename="depart";
+import java.io.Serializable;
+
+public class Depart implements Serializable {
+	
+	/**
+	 *	二级缓存序列化
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String name;
 	public Depart() {

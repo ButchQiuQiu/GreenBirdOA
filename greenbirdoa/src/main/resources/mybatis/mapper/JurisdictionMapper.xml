@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butch.greenbirdoa.mapper.JurisdictionMapper">
+<!--开启二级缓存-->
+<cache/>
+<!-- 映射teacher的子查询,有缓存的情况下子查询拥有着更好的复用性-->
+  <select id="getAllJurisdiction" resultType="Jurisdiction">
+    select * from jurisdiction
+  </select>
+  <select id="getJurisdictionById" resultType="Jurisdiction">
+      select * from jurisdiction where id=#{id}
+  </select>
+</mapper>

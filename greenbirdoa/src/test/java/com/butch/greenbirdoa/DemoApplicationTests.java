@@ -2,8 +2,12 @@ package com.butch.greenbirdoa;
 
 import javax.sql.DataSource;
 
+import com.butch.greenbirdoa.mapper.DepartMapper;
+import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;
 import com.butch.greenbirdoa.mapper.UserMapper;
+import com.butch.greenbirdoa.pojo.Depart;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +21,12 @@ class DemoApplicationTests {
 
 	@Autowired
 	SexMapper sexMapper;
+
+	@Autowired
+	DepartMapper departMapper;
+
+	@Autowired
+	JurisdictionMapper jurisdictionMapper;
 
 	@Autowired
 	DataSource ds;

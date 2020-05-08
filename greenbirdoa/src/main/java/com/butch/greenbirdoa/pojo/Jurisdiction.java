@@ -1,6 +1,12 @@
 package com.butch.greenbirdoa.pojo;
 
-public class Jurisdiction {
+import java.io.Serializable;
+
+public class Jurisdiction implements Serializable{
+	/**
+	 *	二级缓存序列化
+	 */
+	private static final long serialVersionUID = 1L;
 	public static String tablename="jurisdiction";
 	private Integer id;
 	private String name;

@@ -4,9 +4,10 @@
   <!--开启二级缓存-->
   <cache />
 
-  
+
   <!-- 映射UserMapper -->
   <resultMap id="UserMap" type="User">
+
     <result property="username" column="username" />
     <result property="password" column="password" />
     <result property="name" column="name" />
@@ -15,18 +16,19 @@
     <result property="salary" column="salary" />
     <result property="lastsign" column="lastsign" />
     <result property="absenteeism" column="absenteeism" />
-
     <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
-    <association property="sex" column="id" javaType="Sex" select="SexMapper.getSexById">
-
-      <association property="jurisdiction" column="id" javaType="Jurisdiction" select="JurisdictionMapper.getAlljurisdiction"></association>
-
-      <association property="depart" column="id" javaType="Depart" select="DepartMapper.getAllDepart"></association>
-    </association>
+    <association property="sex" column="id" javaType="Sex" 
+    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById"></association>
+    
+    <association property="jurisdiction" column="id" javaType="Jurisdiction" 
+    select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById"></association>
+    
+    <association property="depart" column="id" javaType="Depart" 
+    select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById"></association>
   </resultMap>
 
 
-  <select id="getUserByUsername" resultType="UserMap" parameterType="string">
+  <select id="getUserByUsername" resultMap="UserMap" parameterType="string">
     select * from user where username = #{username}
   </select>
 </mapper>
