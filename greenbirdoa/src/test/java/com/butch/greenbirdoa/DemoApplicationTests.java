@@ -23,7 +23,7 @@ class DemoApplicationTests {
 	
 	@Test
 	void contextLoads() {
-		System.out.println(ds.getClass());
+		System.out.println(userMapper.getUserByUsername("Qiu123456"));
 	}
 	//加密密码
 	@Test

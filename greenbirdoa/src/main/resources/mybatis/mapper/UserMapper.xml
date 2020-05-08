@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.butch.greenbirdoa.mapper.UserMapper">
-<!--开启account支持二级缓存-->
-<cache/>
-<!-- 映射teacher的子查询,有缓存的情况下子查询拥有着更好的复用性-->
-<resultMap id="fk_sex" type="Sex"></resultMap>
-  <select id="getUserByUsername" resultType="User" parameterType="string">
+  <!--开启二级缓存-->
+  <cache />
+
+  
+  <!-- 映射UserMapper -->
+  <resultMap id="UserMap" type="User">
+    <result property="username" column="username" />
+    <result property="password" column="password" />
+    <result property="name" column="name" />
+    <result property="address" column="address" />
+    <result property="phone" column="phone" />
+    <result property="salary" column="salary" />
+    <result property="lastsign" column="lastsign" />
+    <result property="absenteeism" column="absenteeism" />
+
+    <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
+    <association property="sex" column="id" javaType="Sex" select="SexMapper.getSexById">
+
+      <association property="jurisdiction" column="id" javaType="Jurisdiction" select="JurisdictionMapper.getAlljurisdiction"></association>
+
+      <association property="depart" column="id" javaType="Depart" select="DepartMapper.getAllDepart"></association>
+    </association>
+  </resultMap>
+
+
+  <select id="getUserByUsername" resultType="UserMap" parameterType="string">
     select * from user where username = #{username}
   </select>
 </mapper>
