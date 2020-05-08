@@ -6,7 +6,6 @@ import com.butch.greenbirdoa.mapper.DepartMapper;
 import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;
 import com.butch.greenbirdoa.mapper.UserMapper;
-import com.butch.greenbirdoa.pojo.Depart;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ class DemoApplicationTests {
 	void contextLoads() {
 		System.out.println(userMapper.getUserByUsername("Qiu123456"));
 	}
-	//加密密码
+	//使用BCryptPasswordEncoder加密密码
 	@Test
     void pwd() {
         System.out.println(new BCryptPasswordEncoder().encode(""));

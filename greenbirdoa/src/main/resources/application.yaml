@@ -18,5 +18,9 @@ mybatis:
   type-aliases-package: com.butch.greenbirdoa.pojo
   #mapper.xml所在的位置
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.butch.greenbirdoa.mapper: debug      
+   
+    

@@ -1,6 +1,4 @@
-package com.butch.greenbirdoa.config;
-
-import com.butch.greenbirdoa.service.MyUserDetailsService;
+package com.butch.greenbirdoa.security_config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
@@ -50,17 +48,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 在内存中创建一个名为 "user" 的用户，密码为 "pwd"，拥有 "USER" 权限，密码使用BCryptPasswordEncoder加密
-        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("user")
-                .password(new BCryptPasswordEncoder().encode("pwd")).roles("USER");
-        // 在内存中创建一个名为 "admin" 的用户，密码为 "pwd"，拥有 "USER" 和"ADMIN"权限
-        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin")
-                .password(new BCryptPasswordEncoder().encode("pwd")).roles("USER", "ADMIN");
-        // 将自定义的验证provider放入系统中
-        auth.authenticationProvider(backdoorAuthenticationProvider);
+        // // 在内存中创建一个名为 "user" 的用户，密码为 "pwd"，拥有 "USER" 权限，密码使用BCryptPasswordEncoder加密
+        // auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("user")
+        //         .password(new BCryptPasswordEncoder().encode("pwd")).roles("USER");
+        // // 在内存中创建一个名为 "admin" 的用户，密码为 "pwd"，拥有 "USER" 和"ADMIN"权限
+        // auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin")
+        //         .password(new BCryptPasswordEncoder().encode("pwd")).roles("USER", "ADMIN");
+        // // 将自定义的验证provider放入系统中
+        // auth.authenticationProvider(backdoorAuthenticationProvider);
         // 添加一个数据验证类,此时会自动添加一个处理service的DaoAuthenticationProvider.
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(new MyPasswordEncoder());
     }
 
     /**

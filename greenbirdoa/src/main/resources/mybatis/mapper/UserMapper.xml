@@ -6,7 +6,7 @@
 
 
   <!-- 映射UserMapper -->
-  <resultMap id="UserMap" type="User">
+  <resultMap id="User_Map" type="User">
 
     <result property="username" column="username" />
     <result property="password" column="password" />
@@ -15,20 +15,20 @@
     <result property="phone" column="phone" />
     <result property="salary" column="salary" />
     <result property="lastsign" column="lastsign" />
-    <result property="absenteeism" column="absenteeism" />
+    <result property="absenteeism" column="absenteeism"/>
     <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
-    <association property="sex" column="id" javaType="Sex" 
-    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById"></association>
-    
-    <association property="jurisdiction" column="id" javaType="Jurisdiction" 
-    select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById"></association>
-    
-    <association property="depart" column="id" javaType="Depart" 
-    select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById"></association>
+    <association property="sex" column="sex" javaType="Sex" 
+    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById">
+    </association>
+
+    <association property="jurisdiction" column="jurisdiction" javaType="Jurisdiction" 
+    select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById" />
+
+    <association property="depart" column="depart" javaType="Depart" 
+    select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById" />
   </resultMap>
 
-
-  <select id="getUserByUsername" resultMap="UserMap" parameterType="string">
+  <select id="getUserByUsername" resultMap="User_Map" parameterType="string">
     select * from user where username = #{username}
   </select>
 </mapper>
