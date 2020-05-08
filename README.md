@@ -9,7 +9,7 @@
 
 
 
-# 正在转移到maven+springboot+ajax权限改为SpringSecurity实现 .
+# 正在转移到maven+springboot+mybatis+ajax权限改为SpringSecurity实现 .
 
   
   
