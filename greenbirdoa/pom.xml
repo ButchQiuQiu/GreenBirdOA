@@ -36,11 +36,6 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-		<!-- 测试需要用到的Thymeleaf模板类似jsp -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 		<!-- springbootSecurity启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

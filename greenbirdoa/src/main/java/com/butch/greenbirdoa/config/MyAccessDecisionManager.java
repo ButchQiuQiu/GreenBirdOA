@@ -14,9 +14,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 /**
- * AccessDecisionManager框架有3种实现,默认使用投票实现
- * 鉴权决策类,默认实现是使用投票方案
- */
+* AccessDecisionManager框架有3种实现,默认使用投票实现
+* 鉴权决策类,默认实现是使用投票方案
+*/
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
 

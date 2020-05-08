@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  /**
   * 用户表实现UserDetails接口
   */
-public class User implements UserDetails {
+	public class User implements UserDetails {
 	/**	
 	 *	序列化
 	 */
@@ -84,6 +84,90 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return false;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	public String getLastsign() {
+		return lastsign;
+	}
+
+	public void setLastsign(String lastsign) {
+		this.lastsign = lastsign;
+	}
+
+	public Integer getAbsenteeism() {
+		return absenteeism;
+	}
+
+	public void setAbsenteeism(Integer absenteeism) {
+		this.absenteeism = absenteeism;
+	}
+
+	public Jurisdiction getJurisdiction() {
+		return jurisdiction;
+	}
+
+	public void setJurisdiction(Jurisdiction jurisdiction) {
+		this.jurisdiction = jurisdiction;
+	}
+
+	public Depart getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Depart depart) {
+		this.depart = depart;
 	}
 	
 	}

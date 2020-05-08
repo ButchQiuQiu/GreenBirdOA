@@ -21,8 +21,8 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  */
 
  //待移植security
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // 装配config所需要的组件,大部分由用户重写完成功能------------------------------
 
