@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.security;
+package com.butch.greenbirdoa.security.handle;
 
 import java.io.IOException;
 
@@ -11,8 +11,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Component;
 
 /**
- * MyLogoutSuccessHandler
- * 注销成功自定义处理器
+ * MyLogoutSuccessHandler 注销成功自定义处理器
  */
 @Component
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
@@ -22,5 +21,5 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
             throws IOException, ServletException {
 
     }
-    
+
 }

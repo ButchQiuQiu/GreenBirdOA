@@ -1,7 +1,7 @@
 //不写function代表页面加载就启动
 var div=document.getElementById("initLogin");
 $.ajax({
-    url: "login_InitLogin.do",   //请求的url
+    url: "/get_user_status",   //请求的url
     type: "post",               //请求方式get，post
     data:null,                  //传递给服务器的数据
     dataType: "json",           //返回的数据类型为文本
@@ -25,7 +25,7 @@ $.ajax({
 
 function loginout(){
 	$.ajax({
-	    url: "logout",   //请求的url
+	    url: "/logout",   //请求的url
 	    type: "post",               //请求方式get，post
 	    data:null,                  //传递给服务器的数据
 	    dataType: null,           	//返回的数据类型为文本

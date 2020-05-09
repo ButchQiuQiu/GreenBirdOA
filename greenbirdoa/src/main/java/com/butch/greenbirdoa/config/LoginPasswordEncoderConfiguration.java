@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.security;
+package com.butch.greenbirdoa.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * 只有自定义才能不加密
  */
 @Configuration
-public class LoginPasswordEncoder implements PasswordEncoder{
+public class LoginPasswordEncoderConfiguration implements PasswordEncoder{
 
     /**
      * 没有密码保护的PasswordEncoder
@@ -36,7 +36,6 @@ public class LoginPasswordEncoder implements PasswordEncoder{
         System.out.println("密码是:"+rawPassword.toString());
         return rawPassword.toString();
     }
-
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         System.out.println("密码对比:"+rawPassword+"和"+encodedPassword);
