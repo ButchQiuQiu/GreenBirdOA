@@ -51,40 +51,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 				+ phone + ", salary=" + salary + ", sex=" + sex + ", username=" + username + "]";
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
-	}
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -168,6 +135,42 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 	public void setDepart(Depart depart) {
 		this.depart = depart;
+	}
+
+	//获取权限名
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+	//获取密码
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+	//获取账号
+	@Override
+	public String getUsername() {
+		return this.username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 	
 	}

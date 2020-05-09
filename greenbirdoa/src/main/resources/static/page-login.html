@@ -60,13 +60,14 @@
                 login();
            } 
         };
-        function login(){
+        function login(){            
             var user=document.getElementById("user").value;
             var pwd=document.getElementById("pwd").value;
+            alert("账号"+user+"密码"+pwd);
             $.ajax({
-                    url: "login_UserIsTrue.do",           //请求的url
+                    url: "login",           //请求的url
                     type: "POST",               //请求方式get，post
-                    data: {"user":user,"pwd":pwd},            //传递给服务器的数据
+                    data: {"username":user,"password":pwd},            //传递给服务器的数据
                     dataType:"json",           //返回的数据类型为文本
                     success:function(data){
                         if(data.returnIsTrue=="true"){

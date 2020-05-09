@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.security_config;
+package com.butch.greenbirdoa.security;
 
 import com.butch.greenbirdoa.mapper.UserMapper;
 import com.butch.greenbirdoa.pojo.User;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,10 +25,12 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("检查登录");
         User userBean=mapper.getUserByUsername(username);
         if(userBean==null){
             throw new UsernameNotFoundException("数据库中没有此用户");
         }
+        System.out.println("账号:"+userBean.getUsername()+"密码:"+userBean.getPassword());
         return userBean;
     }
 }

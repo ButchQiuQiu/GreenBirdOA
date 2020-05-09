@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.security_config;
+package com.butch.greenbirdoa.security;
 
 import java.io.IOException;
 import java.io.PrintWriter;

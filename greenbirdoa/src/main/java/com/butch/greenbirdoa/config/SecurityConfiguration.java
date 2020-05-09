@@ -1,4 +1,24 @@
-package com.butch.greenbirdoa.security_config;
+package com.butch.greenbirdoa.config;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.butch.greenbirdoa.security.BackdoorAuthenticationProvider;
+import com.butch.greenbirdoa.security.LoginFailedHandle;
+import com.butch.greenbirdoa.security.LoginPasswordEncoder;
+import com.butch.greenbirdoa.security.LoginSuccessHandle;
+import com.butch.greenbirdoa.security.MyAccessDecisionManager;
+import com.butch.greenbirdoa.security.MyAccessDeniedHandler;
+import com.butch.greenbirdoa.security.MyLogoutSuccessHandler;
+import com.butch.greenbirdoa.security.MySecurityMetadataSource;
+import com.butch.greenbirdoa.security.MyUserDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +28,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * @Configuration标注这是个配置类, 将会被spring扫描配置. @EnableWebSecurity:
@@ -24,12 +46,22 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // 装配config所需要的组件,大部分由用户重写完成功能------------------------------
 
-    // 自定义验证类,可以添加自定义验证.
-    @Autowired
-    BackdoorAuthenticationProvider backdoorAuthenticationProvider;
+    // // 自定义验证类,可以添加自定义验证.
+    // @Autowired
+    // BackdoorAuthenticationProvider backdoorAuthenticationProvider;
+
     // 自定义详细验证类,可以对接默认的DaoAuthenticationProvider自定义验证过程
     @Autowired
     MyUserDetailsService myUserDetailsService; 
+    //验证成功后的自定义处理器
+    @Autowired
+    LoginSuccessHandle loginSuccessHandle;
+    //验证失败后的自定义处理器
+    @Autowired
+    LoginFailedHandle loginFailedHandle;
+    //注销成功后的自定义处理器
+    @Autowired
+    MyLogoutSuccessHandler myLogoutSuccessHandler;
     // 自定义鉴权类
     @Autowired
     MyAccessDecisionManager myAccessDecisionManager;
@@ -57,7 +89,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // // 将自定义的验证provider放入系统中
         // auth.authenticationProvider(backdoorAuthenticationProvider);
         // 添加一个数据验证类,此时会自动添加一个处理service的DaoAuthenticationProvider.
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(new MyPasswordEncoder());
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(new LoginPasswordEncoder());
     }
 
     /**
@@ -73,45 +105,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 处理请求
                 .authorizeRequests()
                 // 添加各种处理器-->过滤拦截器
-                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-
-                    // 初始化对象，可能会返回一个应该使用的修改过的实例。
-                    @Override
-                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-                        // 设置提供鉴权角色类
-                        object.setSecurityMetadataSource(mySecurityMetadataSource);
-                        // 设置自定义鉴权类
-                        object.setAccessDecisionManager(myAccessDecisionManager);
-                        //返回初始化的对象
-                        return object;
-                    }
-                })
+                // .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                //     // 初始化对象，可能会返回一个应该使用的修改过的实例。
+                //     @Override
+                //     public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                //         // 设置提供鉴权角色类
+                //         object.setSecurityMetadataSource(mySecurityMetadataSource);
+                //         // 设置自定义鉴权类
+                //         object.setAccessDecisionManager(myAccessDecisionManager);
+                //         //返回初始化的对象
+                //         return object;
+                //     }
+                // })
                 .and()
-                //配置登录界面和登录请求url
-                .formLogin().loginPage("/login_p").loginProcessingUrl("/login").permitAll()
+                //配置登录请求的url和登录与成功的处理器
+                .formLogin().loginProcessingUrl("/login").successHandler(loginSuccessHandle).failureHandler(loginFailedHandle).permitAll()
                 //设置login_p页面向login提交的表单的各个元素名.
-                .usernameParameter("myusername").passwordParameter("mypassword")
+                .usernameParameter("username").passwordParameter("password")
                 .and()
-                //设置注销页面,和注销成功后的展示页面.
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll()
+                //设置注销请求的url和对应的自定义处理器.
+                .logout().logoutUrl("/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll()
                 .and()
                 //关闭默认打开的csrf攻击保护
                 .csrf().disable()
                 //添加鉴权失败后的自定义处理器
-                .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
+                //.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
                 ;
 
     }
 
-    /**
-     * 重写此方法以配置WebSecurity,例如希望忽略某些请求。
-     * 
-     * @param web
-     * @throws Exception
-     */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/index.html", "/static/**", "/favicon.ico", "/error", "/login_p");
-    }
+    
 
 }

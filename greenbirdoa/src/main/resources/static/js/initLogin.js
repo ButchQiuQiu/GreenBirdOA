@@ -25,7 +25,7 @@ $.ajax({
 
 function loginout(){
 	$.ajax({
-	    url: "login_Loginout.do",   //请求的url
+	    url: "logout",   //请求的url
 	    type: "post",               //请求方式get，post
 	    data:null,                  //传递给服务器的数据
 	    dataType: null,           	//返回的数据类型为文本

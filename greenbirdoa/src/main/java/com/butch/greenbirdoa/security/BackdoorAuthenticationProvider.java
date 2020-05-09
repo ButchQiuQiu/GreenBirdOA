@@ -1,4 +1,4 @@
-package com.butch.greenbirdoa.security_config;
+package com.butch.greenbirdoa.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
