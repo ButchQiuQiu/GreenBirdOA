@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,7 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //如果为登录将会拦截所有请求强制跳转登录界面,只放行登录界面需要的资源
                 .authorizeRequests().antMatchers("/assets/**","/images/**","/js/**","/vendors/**","apple-icon.png","favicon.ico")
                 .permitAll().anyRequest().authenticated()
-                // 添加各种处理器-->过滤拦截器
+                // 添加鉴权的各种处理器-->过滤拦截器 
                 // .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>()
                 // {
                 // // 初始化对象，可能会返回一个应该使用的修改过的实例。
@@ -95,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // object.setSecurityMetadataSource(mySecurityMetadataSource);
                 // // 设置自定义鉴权类
                 // object.setAccessDecisionManager(myAccessDecisionManager);
-                // //返回初始化的对象
+                // //返回添加处理器后的对象
                 // return object;
                 // }
                 // })
