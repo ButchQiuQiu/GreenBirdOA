@@ -21,6 +21,7 @@ import com.butch.greenbirdoa.security.MyUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,6 +30,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -46,10 +48,13 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // 装配config所需要的组件,大部分由用户重写完成功能------------------------------
 
+    //---------------------------------------------验证--------------------------------------------
     // // 自定义验证类,可以添加自定义验证.
     // @Autowired
     // BackdoorAuthenticationProvider backdoorAuthenticationProvider;
-
+    //自定义的passwordEncoder,NoPassWordEncoder为不启动密码编码,BCryptPasswordEncoder为启动BCryptPasswordEncoder编码器
+    @Autowired()@Qualifier("NoPassWordEncoder")
+    PasswordEncoder passwordEncoder;
     // 自定义详细验证类,可以对接默认的DaoAuthenticationProvider自定义验证过程
     @Autowired
     MyUserDetailsService myUserDetailsService; 
@@ -62,6 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //注销成功后的自定义处理器
     @Autowired
     MyLogoutSuccessHandler myLogoutSuccessHandler;
+//-------------------------------------------------鉴权----------------------------------------------
     // 自定义鉴权类
     @Autowired
     MyAccessDecisionManager myAccessDecisionManager;
@@ -88,8 +94,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //         .password(new BCryptPasswordEncoder().encode("pwd")).roles("USER", "ADMIN");
         // // 将自定义的验证provider放入系统中
         // auth.authenticationProvider(backdoorAuthenticationProvider);
-        // 添加一个数据验证类,此时会自动添加一个处理service的DaoAuthenticationProvider.
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(new LoginPasswordEncoder());
+        // 添加一个数据验证类和passworEncoder,此时会自动添加一个处理service的DaoAuthenticationProvider.
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
     }
 
     /**
