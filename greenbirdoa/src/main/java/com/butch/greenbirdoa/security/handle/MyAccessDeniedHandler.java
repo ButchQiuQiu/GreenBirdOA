@@ -22,6 +22,24 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
     /**
      * AccessDeniedException接受鉴权处理的异常
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 检查为什么ajax会强制前台403
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,

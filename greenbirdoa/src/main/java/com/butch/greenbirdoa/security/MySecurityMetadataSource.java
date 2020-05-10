@@ -32,7 +32,6 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     */
    @Override
    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-       System.out.println("被保护的对象类型:"+object.getClass());
        //从被保护的对象里获需要访问的资源(网址)
        String requestUrl=((FilterInvocation)object).getRequestUrl();
        //从数据库中得到所有资源,以及目标资源对应的角色集.

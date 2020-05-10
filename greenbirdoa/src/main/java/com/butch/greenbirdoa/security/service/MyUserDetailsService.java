@@ -28,7 +28,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if (userBean == null) {
             throw new UsernameNotFoundException("数据库中没有此用户");
         }
-        System.out.println("账号:" + userBean.getUsername() + "密码:" + userBean.getPassword());
         return userBean;
     }
 }

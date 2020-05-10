@@ -24,7 +24,6 @@ public class LoginFailedHandle implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
-        System.out.println("登录失败了");
         // 登录成功后的处理
         PrintWriter writer = response.getWriter();
         // 添加jackson

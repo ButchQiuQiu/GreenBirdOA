@@ -13,3 +13,4 @@
 
 3. 普通部的权限:只能查询自己和比自己级别低的同部门用户.
 
+4. Object为FilterInvocation类型包含了req和rep

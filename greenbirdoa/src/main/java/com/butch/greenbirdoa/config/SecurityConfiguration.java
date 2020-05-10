@@ -11,11 +11,14 @@ import com.butch.greenbirdoa.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * @Configuration标注这是个配置类, 将会被spring扫描配置. @EnableWebSecurity:
@@ -80,24 +83,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // 处理请求
-                //如果为登录将会拦截所有请求强制跳转登录界面,只放行登录界面需要的资源
-                .authorizeRequests().antMatchers("/assets/**","/images/**","/js/**","/vendors/**","apple-icon.png","favicon.ico")
-                .permitAll().anyRequest().authenticated()
-                // 添加鉴权的各种处理器-->过滤拦截器 
-                // .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>()
-                // {
-                // // 初始化对象，可能会返回一个应该使用的修改过的实例。
-                // @Override
-                // public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-                // // 设置提供鉴权角色类
-                // object.setSecurityMetadataSource(mySecurityMetadataSource);
-                // // 设置自定义鉴权类
-                // object.setAccessDecisionManager(myAccessDecisionManager);
-                // //返回添加处理器后的对象
-                // return object;
-                // }
-                // })
+                // 处理请求,所有请求需要登录才能访问
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                // 添加鉴权的各种处理器-->过滤拦截器 ,权限拦截器在验证拦截器后执行,
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    // 初始化对象，可能会返回一个应该使用的修改过的实例。
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                        // 设置提供鉴权角色类
+                        // object.setSecurityMetadataSource(mySecurityMetadataSource);
+                        // 设置自定义鉴权类
+                        object.setAccessDecisionManager(myAccessDecisionManager);
+                        // 返回添加处理器后的对象
+                        return object;
+                    }
+                })
                 .and()
                 // 配置登录请求的url和登录与成功的处理器
                 .formLogin().loginPage("/page-login.html").loginProcessingUrl("/login")
@@ -113,5 +114,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         ;
 
     }
+
+    /**
+     * 过滤掉登陆界面的资源以免验证拦截等拦截器循环重定向
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/page-login.html","/assets/**", "/images/**", "/js/**", "/vendors/**", "apple-icon.png", "favicon.ico");
+    }
+    
     
 }

@@ -25,7 +25,6 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        System.out.println("登录成功了");
         // 登录成功后的处理
         PrintWriter writer = response.getWriter();
         // 添加jackson
