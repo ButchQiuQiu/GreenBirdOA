@@ -46,12 +46,14 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 			throw new BadCredentialsException("用户未登录");
 		}
 		// 通过反射分发url对应的权限验证,主要验证用户是否能操作目标用户.
-		Object re = ReflectUtil.useMethodByMethodName(accessDecisionService, "delet222e_adminstrative",
+		String methodName=filterInvocation.getRequestUrl().substring(1).replace('/', '_');
+		System.out.println(methodName);
+		Object re = ReflectUtil.useMethodByMethodName(accessDecisionService, methodName,
 				filterInvocation.getHttpRequest());
 		if (re != null) {
 			if ((boolean) re == false) {
 				// 没有匹配到能通过的权限
-				throw new AccessDeniedException("你没有" + object + "的权限!");
+				throw new AccessDeniedException("没有权限!");
 			}
 		}
 	}

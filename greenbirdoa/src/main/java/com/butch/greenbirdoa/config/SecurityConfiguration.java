@@ -1,5 +1,11 @@
 package com.butch.greenbirdoa.config;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.butch.greenbirdoa.security.MyAccessDecisionManager;
 import com.butch.greenbirdoa.security.MySecurityMetadataSource;
 import com.butch.greenbirdoa.security.handle.LoginFailedHandle;
@@ -11,6 +17,7 @@ import com.butch.greenbirdoa.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +25,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
@@ -58,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     MySecurityMetadataSource mySecurityMetadataSource;
     // 鉴权失败的自定义处理器
+    @Autowired
     MyAccessDeniedHandler myAccessDeniedHandler;
 
     /**
@@ -107,10 +116,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username").passwordParameter("password").and()
                 // 设置注销请求的url和对应的自定义处理器.
                 .logout().logoutUrl("/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll().and()
-                // 关闭默认打开的csrf攻击保护
-                .csrf().disable()
-        // 添加鉴权失败后的自定义处理器
-        // .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
+            // 添加鉴权失败后的自定义处理器
+            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
+            // 关闭默认打开的csrf攻击保护
+            .and().csrf().disable()
         ;
 
     }

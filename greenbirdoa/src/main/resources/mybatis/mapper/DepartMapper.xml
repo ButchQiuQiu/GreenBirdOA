@@ -5,10 +5,17 @@
 <mapper namespace="com.butch.greenbirdoa.mapper.DepartMapper">
 
 <!-- 映射teacher的子查询,有缓存的情况下子查询拥有着更好的复用性-->
-  <select id="getAllDepart" resultType="Depart">
+  <resultMap id="Depart_Map" type="Depart">
+    <result property="id" column="id" />
+    <result property="name" column="name"/>
+    <association property="authority" column="authority" javaType="Authority" 
+    select="com.butch.greenbirdoa.mapper.AuthorityMapper.getAuthorityById"/>
+  </resultMap>
+
+  <select id="getAllDepart" resultMap="Depart_Map">
     select * from depart
   </select>
-  <select id="getDepartById" resultType="Depart">
+  <select id="getDepartById" resultMap="Depart_Map">
       select * from depart where id=#{id}
   </select>
 </mapper>

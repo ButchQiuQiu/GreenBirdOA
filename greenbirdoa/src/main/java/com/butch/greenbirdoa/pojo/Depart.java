@@ -11,30 +11,48 @@ public class Depart implements Serializable {
 	
 	private Integer id;
 	private String name;
+	private Authority authority;
+
 	public Depart() {
-		super();
 	}
-	public Depart(Integer id, String name) {
-		super();
+
+	public Depart(Integer id, String name, Authority authority) {
 		this.id = id;
 		this.name = name;
+		this.authority = authority;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", name=" + name + ", hashCode()=" + hashCode() + "]";
+		return "Depart [authority=" + authority + ", id=" + id + ", name=" + name + "]";
 	}
 	
 }

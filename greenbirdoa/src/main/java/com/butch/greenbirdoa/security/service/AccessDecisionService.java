@@ -18,9 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AccessDecisionService {
+    //测试
+    public boolean user_status(HttpServletRequest req){
+        System.out.println("检查status权限100%失败");
+        return false;
+    }
     //删除前鉴权----------------------------------------------------------
     public boolean delete_adminstrative(HttpServletRequest req){
-        System.out.println("执行删除方法req:"+req.toString());
         return false;
     }
     public boolean delete_personnel(HttpServletRequest req){

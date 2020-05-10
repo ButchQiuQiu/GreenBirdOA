@@ -22,5 +22,6 @@ mybatis:
 logging:
   level:
     com.butch.greenbirdoa.mapper: debug      
+    org.springframework.security: debug
    
     

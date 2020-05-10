@@ -1,61 +1,28 @@
 package com.butch.greenbirdoa.security.handle;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.butch.greenbirdoa.pojo.ResponseBean;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * 鉴权失败后的处理程序.
+ * 
+ * 明天把springBoot的版本降低成稳定版
  */
 @Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
-    /**
-     * AccessDeniedException接受鉴权处理的异常
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 检查为什么ajax会强制前台403
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
-    @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response,
-            AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        // 返回403表示服务器理解但是拒接请求
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        // 设置返回格式为json
-        response.setContentType("application/json;charset=UTF-8");
-        // 获得rsp的writer
-        PrintWriter out = response.getWriter();
-        // 去除异常的信息存入ResponseBean并且发送给前端
-        ResponseBean info = new ResponseBean(500, accessDeniedException.getMessage(), null);
-        // 通过jackson解析并且发送ResponseBean实例
-        out.write(new ObjectMapper().writeValueAsString(info));
-        // 刷新并且关闭writer
-        out.flush();
-        out.close();
-    }
+	@Override
+	public void handle(HttpServletRequest request, HttpServletResponse response,
+			AccessDeniedException accessDeniedException) throws IOException, ServletException {
+            System.out.println("鉴权失败111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+	}
+
 }
