@@ -236,7 +236,7 @@
             //完成按钮
             $("td").unbind("click").click(function () {
                 //账号不能修改的条件(在数据库的用户)
-                if ($(this).attr("isClick") != "true"&&(($("th[dataColName=user]")[0].cellIndex!=$(this)[0].cellIndex)||$(this).parent("tr").find("#addButton").length==1)) {
+                if ($(this).attr("isClick") != "true"&&(($("th[dataColName=username]")[0].cellIndex!=$(this)[0].cellIndex)||$(this).parent("tr").find("#addButton").length==1)) {
                     var html = $(this).html();
                     //完成按钮
                     var defaluButton = "<button type='button' id='editButton' class='btn btn-outline-success dataTableTdClass'>完成</button>";
@@ -319,8 +319,8 @@
             var td=tr.find("td");
             var json={
                 name:td.eq($("th[dataColName=name]")[0].cellIndex).text(),
-                user:td.eq($("th[dataColName=user]")[0].cellIndex).text(),
-                pwd:td.eq($("th[dataColName=pwd]")[0].cellIndex).text(),
+                user:td.eq($("th[dataColName=username]")[0].cellIndex).text(),
+                pwd:td.eq($("th[dataColName=password]")[0].cellIndex).text(),
                 fk_sex:td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
                 address:td.eq($("th[dataColName=address]")[0].cellIndex).text(),
                 phone:td.eq($("th[dataColName=phone]")[0].cellIndex).text(),
@@ -359,7 +359,7 @@
             var Return=false;
             var td=tr.find("td");
             var json={
-                user:td.eq($("th[dataColName=user]")[0].cellIndex).text(),
+                user:td.eq($("th[dataColName=username]")[0].cellIndex).text(),
             };
             $.ajax({
                 async:false,                     //添加必须为非异步
@@ -387,7 +387,7 @@
         //修改用户的其中一项
         function editUser(td) {
             var json={
-                user:td.siblings("td").eq($("th[dataColName=user]")[0].cellIndex).text(),
+                user:td.siblings("td").eq($("th[dataColName=username]")[0].cellIndex).text(),
                 key:$("th").eq(td[0].cellIndex).attr("dataColName"),
                 value:td.children().eq(0).val()
             };
