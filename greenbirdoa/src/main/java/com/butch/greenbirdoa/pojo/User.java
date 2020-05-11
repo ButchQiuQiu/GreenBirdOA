@@ -20,41 +20,72 @@ import org.springframework.security.core.userdetails.UserDetails;
 	private String username;
 	private String password;
 	private String name;
-	private Sex sex;
+	private Sex fk_sex;
 	private String address;
 	private String phone;
 	private Double salary;
 	private String lastsign;
 	private Integer absenteeism;
-	private Jurisdiction jurisdiction;
-	private Depart depart;
+	private Jurisdiction fk_jurisdiction;
+	private Depart fk_depart;
 
 	public User() {
 	}
+	
+	
 
-	public User(String username, String password, String name, Sex sex, String address, String phone, Double salary,
-			String lastsign, Integer absenteeism, Jurisdiction jurisdiction, Depart depart) {
+	//获取权限名
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(this.fk_depart.getFk_authority().getName()));
+		return simpleGrantedAuthorities;
+	}
+	//获取密码
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+	//获取账号
+	@Override
+	public String getUsername() {
+		return this.username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public User(String username, String password, String name, Sex fk_sex, String address, String phone, Double salary,
+			String lastsign, Integer absenteeism, Jurisdiction fk_jurisdiction, Depart fk_depart) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.sex = sex;
+		this.fk_sex = fk_sex;
 		this.address = address;
 		this.phone = phone;
 		this.salary = salary;
 		this.lastsign = lastsign;
 		this.absenteeism = absenteeism;
-		this.jurisdiction = jurisdiction;
-		this.depart = depart;
+		this.fk_jurisdiction = fk_jurisdiction;
+		this.fk_depart = fk_depart;
 	}
-
-	@Override
-	public String toString() {
-		return "User [absenteeism=" + absenteeism + ", address=" + address + ", depart=" + depart + ", jurisdiction="
-				+ jurisdiction + ", lastsign=" + lastsign + ", name=" + name + ", password=" + password + ", phone="
-				+ phone + ", salary=" + salary + ", sex=" + sex + ", username=" + username + "]";
-	}
-
-	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -76,12 +107,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 		this.name = name;
 	}
 
-	public Sex getSex() {
-		return sex;
+	public Sex getFk_sex() {
+		return fk_sex;
 	}
 
-	public void setSex(Sex sex) {
-		this.sex = sex;
+	public void setFk_sex(Sex fk_sex) {
+		this.fk_sex = fk_sex;
 	}
 
 	public String getAddress() {
@@ -124,58 +155,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 		this.absenteeism = absenteeism;
 	}
 
-	public Jurisdiction getJurisdiction() {
-		return jurisdiction;
+	public Jurisdiction getFk_jurisdiction() {
+		return fk_jurisdiction;
 	}
 
-	public void setJurisdiction(Jurisdiction jurisdiction) {
-		this.jurisdiction = jurisdiction;
+	public void setFk_jurisdiction(Jurisdiction fk_jurisdiction) {
+		this.fk_jurisdiction = fk_jurisdiction;
 	}
 
-	public Depart getDepart() {
-		return depart;
+	public Depart getFk_depart() {
+		return fk_depart;
 	}
 
-	public void setDepart(Depart depart) {
-		this.depart = depart;
-	}
-
-	//获取权限名
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-		simpleGrantedAuthorities.add(new SimpleGrantedAuthority(this.depart.getAuthority().getName()));
-		return simpleGrantedAuthorities;
-	}
-	//获取密码
-	@Override
-	public String getPassword() {
-		return this.password;
-	}
-	//获取账号
-	@Override
-	public String getUsername() {
-		return this.username;
+	public void setFk_depart(Depart fk_depart) {
+		this.fk_depart = fk_depart;
 	}
 
 	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
+	public String toString() {
+		return "User [absenteeism=" + absenteeism + ", address=" + address + ", fk_depart=" + fk_depart
+				+ ", fk_jurisdiction=" + fk_jurisdiction + ", fk_sex=" + fk_sex + ", lastsign=" + lastsign + ", name="
+				+ name + ", password=" + password + ", phone=" + phone + ", salary=" + salary + ", username=" + username
+				+ "]";
 	}
 	
 	}

@@ -1,5 +1,6 @@
 package com.butch.greenbirdoa.mapper;
 
+import java.util.List;
 
 import com.butch.greenbirdoa.pojo.User;
 
@@ -11,8 +12,14 @@ public interface UserMapper {
      * @param name 用户名
      * @return 一个用户
      */
-    //已经mapper
-    public User getUserByUsername(String name);
+	public User getUserByUsername(String name);
+	
+	/**
+	 * 获取所有用户
+	 * @return 用户合集
+	 */
+	public List<User> getAllUser();
+
     // /**
 	//  * @param user 用户名
 	//  * @param pwd 密码
@@ -36,12 +43,7 @@ public interface UserMapper {
 	//  */
 	// void setAllSign();
 
-	// /**
-	//  * 获取用户
-	//  * @param sql语句条件
-	//  * @return 用户合集
-	//  */
-	// List<User> getAllUser(String sql);
+	
 	// /**
 	//  * 添加一名用户
 	//  * @param user:前端传过来的数据合成的一个user

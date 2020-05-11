@@ -1,7 +1,6 @@
 package com.butch.greenbirdoa.security;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.butch.greenbirdoa.security.service.AccessDecisionService;
 import com.butch.greenbirdoa.util.ReflectUtil;
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
@@ -41,18 +38,28 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 			throws AccessDeniedException, InsufficientAuthenticationException {
 		// 过滤器对象可以获取req/rep和requestUrl
 		FilterInvocation filterInvocation = (FilterInvocation) object;
-		// 如果是默认的角色未登录就抛出异常由框架重定向到登录界面
+		// 判断是否登录,如果是默认的角色未登录就抛出异常由框架重定向到登录界面
 		if (authentication.getAuthorities().toString().equals("[ROLE_ANONYMOUS]")) {
 			throw new BadCredentialsException("用户未登录");
 		}
-		// 通过反射分发url对应的权限验证,主要验证用户是否能操作目标用户.
-		String methodName=filterInvocation.getRequestUrl().substring(1).replace('/', '_');
-		System.out.println(methodName);
+
+		/**
+		 * 
+		 * 会在AccessDecisionService中寻找对应函数鉴权,没找到对应鉴权函数代表此请求不需要权限
+		 * 鉴权成功会放行,失败会抛出异常交由MyAccessDeniedHandler执行.
+		 * 
+		 * 通过反射分发url对应的权限验证,主要验证用户是否能操作目标用户. 
+		 * 转换规则:URL:/user/status 请求类型为post 角色为administrative转换成
+		 * user_status_administrative_POST,
+		 */
+		String methodName = filterInvocation.getRequestUrl().substring(1).replace('/', '_')
+				+"_"+ authentication.getAuthorities().toArray()[0]+"_"+filterInvocation.getHttpRequest().getMethod();
+		System.out.println("映射值为:"+methodName);
 		Object re = ReflectUtil.useMethodByMethodName(accessDecisionService, methodName,
 				filterInvocation.getHttpRequest());
 		if (re != null) {
 			if ((boolean) re == false) {
-				// 没有匹配到能通过的权限
+				// 鉴权失败
 				throw new AccessDeniedException("没有权限!");
 			}
 		}

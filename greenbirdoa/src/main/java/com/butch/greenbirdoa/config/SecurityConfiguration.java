@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // 注销成功后的自定义处理器
     @Autowired
     MyLogoutSuccessHandler myLogoutSuccessHandler;
-    // -------------------------------------------------鉴权----------------------------------------------
+    // -------------------------------------------------鉴权---------------------------------------------
     // 自定义鉴权类
     @Autowired
     MyAccessDecisionManager myAccessDecisionManager;

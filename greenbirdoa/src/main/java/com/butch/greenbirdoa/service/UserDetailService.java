@@ -30,7 +30,7 @@ public class UserDetailService {
         Map<String, String> map = new HashMap<>();
         User user = userMapper.getUserByUsername(name);
         map.put("returnIsTrue", "true");
-        map.put("userDepart", user.getDepart().getName());
+        map.put("userDepart", user.getFk_depart().getName());
         map.put("userName", user.getName());
         return objectMapper.writeValueAsString(map);
     }

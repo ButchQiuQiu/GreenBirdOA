@@ -17,18 +17,22 @@
     <result property="lastsign" column="lastsign" />
     <result property="absenteeism" column="absenteeism"/>
     <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
-    <association property="sex" column="sex" javaType="Sex" 
+    <association property="fk_sex" column="fk_sex" javaType="Sex" 
     select="com.butch.greenbirdoa.mapper.SexMapper.getSexById">
     </association>
 
-    <association property="jurisdiction" column="jurisdiction" javaType="Jurisdiction" 
+    <association property="fk_jurisdiction" column="fk_jurisdiction" javaType="Jurisdiction" 
     select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById" />
 
-    <association property="depart" column="depart" javaType="Depart" 
+    <association property="fk_depart" column="fk_depart" javaType="Depart" 
     select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById" />
   </resultMap>
 
   <select id="getUserByUsername" resultMap="User_Map" parameterType="string">
     select * from user where username = #{username}
   </select>
+  <select id="getAllUser" resultMap="User_Map">
+    select * from user 
+  </select>
+
 </mapper>
