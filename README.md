@@ -1,16 +1,11 @@
-这是个的jquery,JDBC,json,练手项目.
-
-
 </br>前端ui使用bootstrap,table是用的Jquery的dataTable,每个td都可以单独点击修改.这个东西太繁琐了,就个表格400行js...
-</br>通信使用的是ajax和json,后端json用apache的jsonLib解析封装
-</br>后端封装了JDBC,自己手搓了一个丐版Dbutils...控制层也用反射搓了个简陋的框架.
-</br>根目录sql是mySql转储,项目是jdk8+eclipse+tomcat9.0.
-</br> 
+</br>通信使用的是ajax和json,后端json用jackson解析封装
 
 
 
 # 正在转移到maven+springboot+mybatis+ajax权限改为SpringSecurity实现 .
-## 鉴权: 在AccessDecisionManager层面由反射分发对应角色url请求类型的方法鉴权,目前只鉴权增删改.
+## 每个角色需求的权限不一样,导致crud会有非常多的鉴权方法.
+</br>采取自动分支在AccessDecisionManager层面由反射自动分发对应角色url请求类型的鉴权方法,目前只鉴权增删改.
 
   
   
