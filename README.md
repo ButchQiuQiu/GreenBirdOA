@@ -10,6 +10,7 @@
 
 
 # 正在转移到maven+springboot+mybatis+ajax权限改为SpringSecurity实现 .
+## 鉴权: 在AccessDecisionManager层面由反射分发对应角色url请求类型的方法鉴权,目前只鉴权增删改.
 
   
   
