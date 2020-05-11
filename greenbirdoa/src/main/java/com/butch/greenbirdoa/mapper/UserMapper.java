@@ -18,7 +18,7 @@ public interface UserMapper {
 	 * 获取所有用户
 	 * @return 用户合集
 	 */
-	public List<User> getAllUser();
+	public List<User> getUsersByUser(User user);
 
     // /**
 	//  * @param user 用户名

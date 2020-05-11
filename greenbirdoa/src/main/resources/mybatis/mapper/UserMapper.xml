@@ -15,11 +15,10 @@
     <result property="phone" column="phone" />
     <result property="salary" column="salary" />
     <result property="lastsign" column="lastsign" />
-    <result property="absenteeism" column="absenteeism"/>
+    <result property="absenteeism" column="absenteeism" />
     <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
     <association property="fk_sex" column="fk_sex" javaType="Sex" 
-    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById">
-    </association>
+    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById"></association>
 
     <association property="fk_jurisdiction" column="fk_jurisdiction" javaType="Jurisdiction" 
     select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById" />
@@ -35,4 +34,24 @@
     select * from user 
   </select>
 
+  <!-- 不同角色权限能查询到的结果 -->
+  <select id="getUsersByUser" resultMap="User_Map" parameterType="user">
+    select * from user
+    <where>
+      <choose>
+        <!-- 管理部门 -->
+        <when test="fk_depart.id==4">
+          fk_jurisdiction&lt;=#{fk_jurisdiction.id}
+        </when>
+        <!-- 人事部门 -->
+        <when test="fk_depart.id==1">
+          fk_jurisdiction&lt;=#{fk_jurisdiction.id} and fk_depart!=4
+        </when>
+        <!-- 其他普通部门 -->
+        <otherwise>
+          fk_jurisdiction&lt;#{fk_jurisdiction.id} and fk_depart=#{fk_depart.id} or username=#{username}
+        </otherwise>
+      </choose>
+    </where>
+  </select>
 </mapper>

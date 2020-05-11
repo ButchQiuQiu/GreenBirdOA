@@ -4,13 +4,16 @@ import com.butch.greenbirdoa.service.DataTableService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * datatable的CURD操作
  */
 @RestController
+@RequestMapping("data/table/user")
 public class DataTableController {
     @Autowired
     private DataTableService dataTableService;
@@ -18,8 +21,10 @@ public class DataTableController {
     /**
      * 获取当前角色能获取到的用户和所有的fk
      */
-    @GetMapping("data/table/user")
-    public String getAllUserAndFkByUserRole() throws JsonProcessingException {
-        return dataTableService.getAllUserAndFkByUserRole();
+    @GetMapping()
+    public String getAllUserAndFkByUserRole(Authentication authentication) throws JsonProcessingException {
+        return dataTableService.getAllUserAndFkByUserRole(authentication.getName());
     }
+
+    
 }

@@ -17,20 +17,19 @@ import org.springframework.stereotype.Service;
 public class DataTableService {
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
     private SexMapper sexMapper;
     @Autowired
     private DepartMapper departMapper;
     @Autowired
     private JurisdictionMapper jurisdictionMapper;
-    public String getAllUserAndFkByUserRole() throws JsonProcessingException{
+    public String getAllUserAndFkByUserRole(String username) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> reJson = new ArrayList<>();
         reJson.add(sexMapper.getAllSex());
         reJson.add(departMapper.getAllDepart());
         reJson.add(jurisdictionMapper.getAllJurisdiction());
-        reJson.addAll(userMapper.getAllUser());
+        reJson.addAll(userMapper.getUsersByUser(userMapper.getUserByUsername(username)));
         return objectMapper.writeValueAsString(reJson);
     }
 }

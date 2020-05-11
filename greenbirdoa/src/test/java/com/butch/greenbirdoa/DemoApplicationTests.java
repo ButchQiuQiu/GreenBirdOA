@@ -6,6 +6,8 @@ import com.butch.greenbirdoa.mapper.DepartMapper;
 import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;
 import com.butch.greenbirdoa.mapper.UserMapper;
+import com.butch.greenbirdoa.service.DataTableService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootTest
 class DemoApplicationTests {
 
-	@Autowired 
+	@Autowired
 	UserMapper userMapper;
 
 	@Autowired
@@ -28,16 +30,18 @@ class DemoApplicationTests {
 	JurisdictionMapper jurisdictionMapper;
 
 	@Autowired
-	DataSource ds;
-	
+	DataTableService dataTableService;
+
 	@Test
-	void contextLoads() {
-		System.out.println(userMapper.getUserByUsername("Qiu123456"));
+	void contextLoads() throws JsonProcessingException {
+		System.out.println(userMapper.getUserByUsername("Qiu123456").getFk_depart().getId());
+		System.out.println(userMapper.getUsersByUser(userMapper.getUserByUsername("Qiu12345629")));
 	}
 	//使用BCryptPasswordEncoder加密密码
 	@Test
     void pwd() {
         System.out.println(new BCryptPasswordEncoder().encode(""));
-    }
+	}
+	
 
 }
