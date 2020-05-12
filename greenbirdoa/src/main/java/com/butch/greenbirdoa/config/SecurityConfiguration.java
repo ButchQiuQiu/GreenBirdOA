@@ -102,12 +102,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 // 配置登录请求的url和登录与成功的处理器
-                .formLogin().loginPage("/page-login.html").loginProcessingUrl("/login")
+                .formLogin().loginPage("/page-login.html").loginProcessingUrl("/user/login")
                 .successHandler(loginSuccessHandle).failureHandler(loginFailedHandle).permitAll()
                 // 设置login_p页面向login提交的表单的各个元素名.
                 .usernameParameter("username").passwordParameter("password").and()
                 // 设置注销请求的url和对应的自定义处理器.
-                .logout().logoutUrl("/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll().and()
+                .logout().logoutUrl("/user/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll().and()
             // 添加鉴权失败后的自定义处理器
             .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
             // 关闭默认打开的csrf攻击保护

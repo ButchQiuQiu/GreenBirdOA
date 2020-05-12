@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 管理用户登录和验证权限的Controller
+ * 
+ * 
  */
 @RestController()
-
+@RequestMapping("/user")
 public class UserDetailController {
     @Autowired
     UserDetailService userDetailService;
@@ -24,7 +26,7 @@ public class UserDetailController {
      * @return 当前用户登录的信息
      * @throws JsonProcessingException json转换失败
      */
-    @PostMapping("/user/status")
+    @PostMapping("/status")
     public String getUserStatus(Authentication authentication) throws JsonProcessingException {
         return userDetailService.getUserDeprtAndNameJson(authentication.getName());
     }
