@@ -22,9 +22,11 @@ public interface UserMapper {
 	public List<User> getUsersByUser(User user);
 
 	/**
-	 * 使用username删除一个用户
-	 * @param username
-	 * @return 处理结果
+	 * 使用Map<String,User>删除一个用户
+	 * @param users 装着2个用户的Map,
+	 * 1. key值:myUser      当前登录的用户
+	 * 2. key值:targetUser	想要操作的用户
+	 * @return 处理结果,false:没有权限,true:操作成功
 	 */
     public boolean deleteUserByUsername(Map<String,User> users);
 }

@@ -33,7 +33,7 @@
 
   <!-- 不同角色权限能查询到的结果 -->
   <select id="getUsersByUser" resultMap="User_Map" parameterType="user">
-    select * from user 
+    select * from user
     <where>
       <choose>
         <!-- 管理部门 -->
@@ -55,22 +55,39 @@
       </choose>
     </where>
   </select>
- 
+
   <delete id="deleteUserByUsername" parameterType="map">
     delete from user where username=#{targetUser.username}
     <choose>
       <!-- 管理部门 -->
       <when test="myUser.fk_depart.fk_authority.id==1">
-        and (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id}
-        or (#{targetUser.fk_depart.id}=4 and #{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id}))
+        and
+          (
+            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=!1)
+            or
+            <!-- 可以操作级别小于自己的管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
+          )
       </when>
       <!-- 人事部门 -->
       <when test="myUser.fk_depart.fk_authority.id==2">
-        and fk_jurisdiction&lt;=#{fk_jurisdiction.id} and fk_depart!=4
+        and
+          ( 
+            <!-- 可以操作级别小于或者等于自己的普通用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
+            or 
+            <!-- 可以操作级别小于自己的人事用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
+          )
       </when>
       <!-- 普通部门 -->
       <when test="myUser.fk_depart.fk_authority.id==3">
-        fk_jurisdiction&lt;#{fk_jurisdiction.id} and fk_depart=#{fk_depart.id} or username=#{username}
+        and
+        (
+          <!-- 不允许操作 -->
+          1=2
+        )
       </when>
       <!-- 未知部门不允许操作 -->
       <otherwise>
