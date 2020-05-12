@@ -11,7 +11,7 @@
  Target Server Version : 50530
  File Encoding         : 65001
 
- Date: 09/05/2020 18:47:47
+ Date: 12/05/2020 14:01:20
 */
 
 SET NAMES utf8mb4;
@@ -30,9 +30,9 @@ CREATE TABLE `authority`  (
 -- ----------------------------
 -- Records of authority
 -- ----------------------------
-INSERT INTO `authority` VALUES (1, 'general');
+INSERT INTO `authority` VALUES (1, 'administrative');
 INSERT INTO `authority` VALUES (2, 'personnel');
-INSERT INTO `authority` VALUES (3, 'administrative');
+INSERT INTO `authority` VALUES (3, 'general');
 
 -- ----------------------------
 -- Table structure for depart
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `depart`;
 CREATE TABLE `depart`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `authority` int(10) NOT NULL COMMENT '权限表外键',
+  `fk_authority` int(10) NOT NULL COMMENT '权限表外键',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
 
@@ -108,18 +108,18 @@ CREATE TABLE `user`  (
   `username` varchar(99) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '账号',
   `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '密码',
   `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '姓名',
-  `sex` int(10) NOT NULL COMMENT '性别',
+  `fk_sex` int(10) NOT NULL COMMENT '性别',
   `address` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '地址',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '手机号码',
   `salary` double(10, 0) NOT NULL DEFAULT 0 COMMENT '工资',
   `lastsign` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '没签到' COMMENT '最后一次签到的日期,服务器由此判断今天是否缺勤',
   `absenteeism` int(10) NOT NULL DEFAULT 0 COMMENT '缺勤的次数',
-  `jurisdiction` int(10) NOT NULL COMMENT '权限',
-  `depart` int(10) NOT NULL COMMENT '部门表外键',
+  `fk_jurisdiction` int(10) NOT NULL COMMENT '基本',
+  `fk_depart` int(10) NOT NULL COMMENT '部门表外键',
   PRIMARY KEY (`username`) USING BTREE,
-  INDEX `fk_sex`(`sex`) USING BTREE,
-  INDEX `fk_jurisdiction`(`jurisdiction`) USING BTREE,
-  INDEX `fk_depart`(`depart`) USING BTREE
+  INDEX `fk_sex`(`fk_sex`) USING BTREE,
+  INDEX `fk_jurisdiction`(`fk_jurisdiction`) USING BTREE,
+  INDEX `fk_depart`(`fk_depart`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
 
 -- ----------------------------
