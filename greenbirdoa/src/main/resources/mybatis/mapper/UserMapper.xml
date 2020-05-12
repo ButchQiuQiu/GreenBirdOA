@@ -17,14 +17,11 @@
     <result property="lastsign" column="lastsign" />
     <result property="absenteeism" column="absenteeism" />
     <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
-    <association property="fk_sex" column="fk_sex" javaType="Sex" 
-    select="com.butch.greenbirdoa.mapper.SexMapper.getSexById"></association>
+    <association property="fk_sex" column="fk_sex" javaType="Sex" select="com.butch.greenbirdoa.mapper.SexMapper.getSexById"></association>
 
-    <association property="fk_jurisdiction" column="fk_jurisdiction" javaType="Jurisdiction" 
-    select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById" />
+    <association property="fk_jurisdiction" column="fk_jurisdiction" javaType="Jurisdiction" select="com.butch.greenbirdoa.mapper.JurisdictionMapper.getJurisdictionById" />
 
-    <association property="fk_depart" column="fk_depart" javaType="Depart" 
-    select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById" />
+    <association property="fk_depart" column="fk_depart" javaType="Depart" select="com.butch.greenbirdoa.mapper.DepartMapper.getDepartById" />
   </resultMap>
 
   <select id="getUserByUsername" resultMap="User_Map" parameterType="string">
@@ -36,22 +33,49 @@
 
   <!-- 不同角色权限能查询到的结果 -->
   <select id="getUsersByUser" resultMap="User_Map" parameterType="user">
-    select * from user
+    select * from user 
     <where>
       <choose>
         <!-- 管理部门 -->
-        <when test="fk_depart.id==4">
+        <when test="fk_depart.fk_authority.id==1">
           fk_jurisdiction&lt;=#{fk_jurisdiction.id}
         </when>
         <!-- 人事部门 -->
-        <when test="fk_depart.id==1">
+        <when test="fk_depart.fk_authority.id==2">
           fk_jurisdiction&lt;=#{fk_jurisdiction.id} and fk_depart!=4
         </when>
-        <!-- 其他普通部门 -->
-        <otherwise>
+        <!-- 普通部门 -->
+        <when test="fk_depart.fk_authority.id==3">
           fk_jurisdiction&lt;#{fk_jurisdiction.id} and fk_depart=#{fk_depart.id} or username=#{username}
+        </when>
+        <!-- 未知部门不允许操作 -->
+        <otherwise>
+          1=2
         </otherwise>
       </choose>
     </where>
   </select>
+ 
+  <delete id="deleteUserByUsername" parameterType="map">
+    delete from user where username=#{targetUser.username}
+    <choose>
+      <!-- 管理部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==1">
+        and (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id}
+        or (#{targetUser.fk_depart.id}=4 and #{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id}))
+      </when>
+      <!-- 人事部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==2">
+        and fk_jurisdiction&lt;=#{fk_jurisdiction.id} and fk_depart!=4
+      </when>
+      <!-- 普通部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==3">
+        fk_jurisdiction&lt;#{fk_jurisdiction.id} and fk_depart=#{fk_depart.id} or username=#{username}
+      </when>
+      <!-- 未知部门不允许操作 -->
+      <otherwise>
+        and 1=2
+      </otherwise>
+    </choose>
+  </delete>
 </mapper>

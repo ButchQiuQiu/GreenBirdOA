@@ -1,6 +1,7 @@
 package com.butch.greenbirdoa.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.butch.greenbirdoa.pojo.User;
 
@@ -20,49 +21,10 @@ public interface UserMapper {
 	 */
 	public List<User> getUsersByUser(User user);
 
-    // /**
-	//  * @param user 用户名
-	//  * @param pwd 密码
-	//  * @return 用户名和密码能否匹配到此用户
-	//  */
-	// boolean loginIsTrue(String user, String pwd);
-	
-	// /**
-	//  * @param user 用户名(从session中提取)
-	//  * @return 这个用户的所有信息
-	//  */
-	// User getUserByUser(String user);
-	
-	// /**
-	//  * @param 用户名
-	//  * @return 是否签到成功
-	//  */
-	// boolean setSignin(String user);
-	// /**
-	//  * 	检查并设置所有人的签到
-	//  */
-	// void setAllSign();
-
-	
-	// /**
-	//  * 添加一名用户
-	//  * @param user:前端传过来的数据合成的一个user
-	//  * @return 处理的结果
-	//  */
-	// boolean addUser(User user);
-	
-	// /**
-	//  *删除一名用户
-	//  * @param user 前端传过来的用户账号
-	//  * @return	处理的结果
-	//  */
-	// boolean deleteUser(String user);
-
-	// /**
-	//  * 更改用户的一项属性
-	//  * @param key
-	//  * @param value
-	//  * @return 处理的结果
-	//  */
-	// boolean editUser(String user,String key, String value);
+	/**
+	 * 使用username删除一个用户
+	 * @param username
+	 * @return 处理结果
+	 */
+    public boolean deleteUserByUsername(Map<String,User> users);
 }

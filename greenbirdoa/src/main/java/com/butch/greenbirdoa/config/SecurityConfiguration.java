@@ -1,24 +1,19 @@
 package com.butch.greenbirdoa.config;
 
-import com.butch.greenbirdoa.security.MyAccessDecisionManager;
-import com.butch.greenbirdoa.security.MySecurityMetadataSource;
 import com.butch.greenbirdoa.security.handle.LoginFailedHandle;
 import com.butch.greenbirdoa.security.handle.LoginSuccessHandle;
-import com.butch.greenbirdoa.security.handle.MyAccessDeniedHandler;
 import com.butch.greenbirdoa.security.handle.MyLogoutSuccessHandler;
 import com.butch.greenbirdoa.security.service.MyUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * @Configuration标注这是个配置类, 将会被spring扫描配置. @EnableWebSecurity:
@@ -51,15 +46,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     MyLogoutSuccessHandler myLogoutSuccessHandler;
     // -------------------------------------------------鉴权---------------------------------------------
+
+
+    //当前项目较小不限制用户的请求使用mybatis动态sql实现鉴权.
+    
+    //拦截器鉴权可以减轻服务器io压力和限制用户的访问,把鉴权处理转移到cpu,但是结构会变得很大可维护性不如mybatis动态sql.
+
+
     // 自定义鉴权类
-    @Autowired
-    MyAccessDecisionManager myAccessDecisionManager;
-    // 自定义鉴权数据类,提供鉴权所需要的角色
-    @Autowired
-    MySecurityMetadataSource mySecurityMetadataSource;
-    // 鉴权失败的自定义处理器
-    @Autowired
-    MyAccessDeniedHandler myAccessDeniedHandler;
+    // @Autowired
+    // MyAccessDecisionManager myAccessDecisionManager;
+    // // 自定义鉴权数据类,提供鉴权所需要的角色
+    // @Autowired
+    // MySecurityMetadataSource mySecurityMetadataSource;
+    // // 鉴权失败的自定义处理器
+    // @Autowired
+    // MyAccessDeniedHandler myAccessDeniedHandler;
 
     /**
      * security提供的建造者对象可以创建基于内存的认证、LDAP认证、
@@ -88,18 +90,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 // 添加鉴权的各种处理器-->过滤拦截器 ,权限拦截器在验证拦截器后执行,
-                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                    // 初始化对象，可能会返回一个应该使用的修改过的实例。
-                    @Override
-                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-                        // 设置提供鉴权角色类
-                        // object.setSecurityMetadataSource(mySecurityMetadataSource);
-                        // 设置自定义鉴权类
-                        object.setAccessDecisionManager(myAccessDecisionManager);
-                        // 返回添加处理器后的对象
-                        return object;
-                    }
-                })
+                // .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                //     // 初始化对象，可能会返回一个应该使用的修改过的实例。
+                //     @Override
+                //     public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                //         // 设置提供鉴权角色类
+                //         object.setSecurityMetadataSource(mySecurityMetadataSource);
+                //         // 设置自定义鉴权类
+                //         object.setAccessDecisionManager(myAccessDecisionManager);
+                //         // 返回添加处理器后的对象
+                //         return object;
+                //     }
+                // })
                 .and()
                 // 配置登录请求的url和登录与成功的处理器
                 .formLogin().loginPage("/page-login.html").loginProcessingUrl("/user/login")
@@ -109,9 +111,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 设置注销请求的url和对应的自定义处理器.
                 .logout().logoutUrl("/user/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll().and()
             // 添加鉴权失败后的自定义处理器
-            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
+            //.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
             // 关闭默认打开的csrf攻击保护
-            .and().csrf().disable()
+            //.and()
+            .csrf().disable()
         ;
 
     }

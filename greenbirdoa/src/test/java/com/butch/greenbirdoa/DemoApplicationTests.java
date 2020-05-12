@@ -34,8 +34,7 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() throws JsonProcessingException {
-		System.out.println(userMapper.getUserByUsername("Qiu123456").getFk_depart().getId());
-		System.out.println(userMapper.getUsersByUser(userMapper.getUserByUsername("Qiu12345629")));
+		System.out.println(dataTableService.deleteUserByUsername("Qiu1234561111117","Qiu1234561111122"));
 	}
 	//使用BCryptPasswordEncoder加密密码
 	@Test

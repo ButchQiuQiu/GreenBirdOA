@@ -63,7 +63,6 @@
         function login(){            
             var user=document.getElementById("user").value;
             var pwd=document.getElementById("pwd").value;
-            alert("账号"+user+"密码"+pwd);
             $.ajax({
                     url: "/user/login",           //请求的url
                     type: "POST",               //请求方式get，post

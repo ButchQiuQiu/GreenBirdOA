@@ -189,12 +189,12 @@
                 //添加按钮
                 $("#addButton").click(function () {
                     //前端判断(用户必须得把所有的编辑完成)
-                    if($(this).parents("tr").find("#editButton").length>0||$(this).parents("tr").html().indexOf("<td></td>")!=-1||$(this).parents("tr").html().indexOf("<td isclick=\"false\"></td>")!=-1){
+                    if ($(this).parents("tr").find("#editButton").length > 0 || $(this).parents("tr").html().indexOf("<td></td>") != -1 || $(this).parents("tr").html().indexOf("<td isclick=\"false\"></td>") != -1) {
                         alert("请完成这位用户所有未编辑完的项目,同时也不能留下空信息!!!");
                         return;
                     }
                     //添加成功后
-                    if (addUser($(this).parents("tr"))==true) {
+                    if (addUser($(this).parents("tr")) == true) {
                         $(this).parent("td").html("<button type='button' class='btn btn-danger'>删除</button>");
                     }
                 });
@@ -221,11 +221,11 @@
             //删除按钮
             $("button:contains(删除)").unbind("click").click(function () {
                 //前端判断(用户必须得把所有的编辑完成)
-                if($(this).parents("tr").find("#editButton").length>0){
-                        alert("请完成这位用户所有未编辑完的项目!!!");
-                        return;
-                    }
-                if(confirm("是否删除这个员工???")){
+                if ($(this).parents("tr").find("#editButton").length > 0) {
+                    alert("请完成这位用户所有未编辑完的项目!!!");
+                    return;
+                }
+                if (confirm("是否删除这个员工???")) {
                     if (deleteUser($(this).parents("tr"))) {
                         $("table").dataTable().fnDestroy();
                         $(this).parents("tr").remove();
@@ -236,7 +236,7 @@
             //完成按钮
             $("td").unbind("click").click(function () {
                 //账号不能修改的条件(在数据库的用户)
-                if ($(this).attr("isClick") != "true"&&(($("th[dataColName=username]")[0].cellIndex!=$(this)[0].cellIndex)||$(this).parent("tr").find("#addButton").length==1)) {
+                if ($(this).attr("isClick") != "true" && (($("th[dataColName=username]")[0].cellIndex != $(this)[0].cellIndex) || $(this).parent("tr").find("#addButton").length == 1)) {
                     var html = $(this).html();
                     //完成按钮
                     var defaluButton = "<button type='button' id='editButton' class='btn btn-outline-success dataTableTdClass'>完成</button>";
@@ -270,8 +270,8 @@
                                 break;
                         }
                         $(this).html(selectHtml + defaluButton);
-                        $(this).children("select").change(function(){
-                            $(this).parents("td").attr("fk_id",$(this).val());
+                        $(this).children("select").change(function () {
+                            $(this).parents("td").attr("fk_id", $(this).val());
                         });
                     }
                     //普通的输入框
@@ -286,8 +286,8 @@
                         var td = $(this).parents("td");
                         var value = td.children("input").val();
                         //后端响应判断
-                        if($(this).parents("tr").find("#addButton").length==0){
-                            if(editUser(td)==false){
+                        if ($(this).parents("tr").find("#addButton").length == 0) {
+                            if (editUser(td) == false) {
                                 return;
                             }
                         }
@@ -316,23 +316,23 @@
         //Ajax与后端通信-----------------------------------------------------------------------------------------------
         //增加一个用户
         function addUser(tr) {
-            var td=tr.find("td");
-            var json={
-                name:td.eq($("th[dataColName=name]")[0].cellIndex).text(),
-                user:td.eq($("th[dataColName=username]")[0].cellIndex).text(),
-                pwd:td.eq($("th[dataColName=password]")[0].cellIndex).text(),
-                fk_sex:td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
-                address:td.eq($("th[dataColName=address]")[0].cellIndex).text(),
-                phone:td.eq($("th[dataColName=phone]")[0].cellIndex).text(),
-                lastsign:td.eq($("th[dataColName=lastsign]")[0].cellIndex).text(),
-                absenteeism:td.eq($("th[dataColName=absenteeism]")[0].cellIndex).text(),
-                salary:td.eq($("th[dataColName=salary]")[0].cellIndex).text(),
-                fk_depart:td.eq($("th[dataColName=fk_depart]")[0].cellIndex).attr("fk_id"),
-                fk_jurisdiction:td.eq($("th[dataColName=fk_jurisdiction]")[0].cellIndex).attr("fk_id")
+            var td = tr.find("td");
+            var json = {
+                name: td.eq($("th[dataColName=name]")[0].cellIndex).text(),
+                user: td.eq($("th[dataColName=username]")[0].cellIndex).text(),
+                pwd: td.eq($("th[dataColName=password]")[0].cellIndex).text(),
+                fk_sex: td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
+                address: td.eq($("th[dataColName=address]")[0].cellIndex).text(),
+                phone: td.eq($("th[dataColName=phone]")[0].cellIndex).text(),
+                lastsign: td.eq($("th[dataColName=lastsign]")[0].cellIndex).text(),
+                absenteeism: td.eq($("th[dataColName=absenteeism]")[0].cellIndex).text(),
+                salary: td.eq($("th[dataColName=salary]")[0].cellIndex).text(),
+                fk_depart: td.eq($("th[dataColName=fk_depart]")[0].cellIndex).attr("fk_id"),
+                fk_jurisdiction: td.eq($("th[dataColName=fk_jurisdiction]")[0].cellIndex).attr("fk_id")
             };
-            var Return=false;
+            var Return = false;
             $.ajax({
-                async:false,                 //添加必须为非异步
+                async: false,                 //添加必须为非异步
                 url: "manage_AddUser.do",    //请求的url
                 type: "post",               //请求方式get，post          
                 data: json,                 //传递给服务器的数据
@@ -340,15 +340,15 @@
                 success: function (data) {
                     if (data.returnIsTrue == "true") {
                         alert("添加成功");
-                        Return= true;
+                        Return = true;
                     } else {
                         alert("添加失败,权限不够或者账号已存在!!!");
-                        Return= false;
+                        Return = false;
                     }
                 },
                 error: function (data) {
                     alert("添加失败,与服务器连接出错!");
-                    Return= false;
+                    Return = false;
                 }
             });
             return Return;
@@ -356,29 +356,32 @@
 
         //删除一个用户
         function deleteUser(tr) {
-            var Return=false;
-            var td=tr.find("td");
-            var json={
-                user:td.eq($("th[dataColName=username]")[0].cellIndex).text(),
+            var Return = false;
+            var td = tr.find("td");
+            var json = {
+                username: td.eq($("th[dataColName=username]")[0].cellIndex).text(),
             };
             $.ajax({
-                async:false,                     //添加必须为非异步
-                url: "manage_DeleteUser.do",    //请求的url
-                type: "post",               //请求方式get，post
+                async: false,                     //添加必须为非异步
+                url: "data/table/user",    //请求的url
+                type: "delete",               //请求方式get，post
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
                 success: function (data) {
-                    if (data.returnIsTrue == "true") {
-                        alert("删除成功");
-                        Return= true;
+                    if (data.authority != "false") {
+                        if (data.returnIsTrue == "true") {
+                            alert("删除成功.");
+                            Return = true;
+                        } else {
+                            alert("删除失败,请联系管理员.");
+                        }
                     } else {
-                        alert("删除失败,权限不够!!!");
-                        Return= false;
+                        alert("权限不足!!!");
                     }
+
                 },
                 error: function (data) {
                     alert("删除失败,与服务器连接出错!");
-                    Return= false;
                 }
             });
             return Return;
@@ -386,29 +389,29 @@
 
         //修改用户的其中一项
         function editUser(td) {
-            var json={
-                user:td.siblings("td").eq($("th[dataColName=username]")[0].cellIndex).text(),
-                key:$("th").eq(td[0].cellIndex).attr("dataColName"),
-                value:td.children().eq(0).val()
+            var json = {
+                user: td.siblings("td").eq($("th[dataColName=username]")[0].cellIndex).text(),
+                key: $("th").eq(td[0].cellIndex).attr("dataColName"),
+                value: td.children().eq(0).val()
             };
-            var Return=false;
+            var Return = false;
             $.ajax({
-                async:false,                 //添加必须为非异步
+                async: false,                 //添加必须为非异步
                 url: "manage_EditUser.do",    //请求的url
                 type: "post",               //请求方式get，post          
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
                 success: function (data) {
                     if (data.returnIsTrue == "true") {
-                        Return= true;
+                        Return = true;
                     } else {
                         alert("修改失败权限不够!!!");
-                        Return= false;
+                        Return = false;
                     }
                 },
                 error: function (data) {
                     alert("修改失败,与服务器连接出错!");
-                    Return= false;
+                    Return = false;
                 }
             });
             return Return;
@@ -417,7 +420,7 @@
         //查询所有用户---------------------------------------------------------------------------------------------------------------------
         function queryUser() {
             $.ajax({
-                async:false,
+                async: false,
                 url: "data/table/user", //请求的url
                 type: "get",               //请求方式get，post
                 data: null,                 //传递给服务器的数据
@@ -437,7 +440,7 @@
                                     //user表里外键的判断fk开头就是外键,子表详细描述都是fk开头
                                     if (th.attr("dataColName").indexOf("fk") == 0) {
                                         //分开不同的fk生成已选中的option
-                                        html += "<td fk_id='"+data[i][key].id+"'>" + data[i][key].name + "</td>";
+                                        html += "<td fk_id='" + data[i][key].id + "'>" + data[i][key].name + "</td>";
                                     } else {
                                         html += "<td>" + data[i][key] + "</td>";
                                     }

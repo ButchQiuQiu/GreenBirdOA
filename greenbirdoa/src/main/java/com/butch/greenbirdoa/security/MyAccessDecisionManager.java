@@ -56,7 +56,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 				+"_"+ authentication.getAuthorities().toArray()[0]+"_"+filterInvocation.getHttpRequest().getMethod();
 		System.out.println("映射值为:"+methodName);
 		Object re = ReflectUtil.useMethodByMethodName(accessDecisionService, methodName,
-				filterInvocation.getHttpRequest());
+				filterInvocation.getHttpRequest(),authentication.getName());
 		if (re != null) {
 			if ((boolean) re == false) {
 				// 鉴权失败
