@@ -47,13 +47,22 @@ public class DataTableService {
         return objectMapper.writeValueAsString(map);
     }
 
+    /**
+     * 如果用户想要修改column是部门或者是级别,那么把信息先加载入targetUser中让mysql判断权限
+     */
     public String updateUserByUserMap(String myUsername,String targetUsername,String column,String value)
         throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = new HashMap<String,String>();
         Map<String, Object> userMap = new HashMap<String,Object>();
         userMap.put("myUser", userMapper.getUserByUsername(myUsername));
-        userMap.put("targetUser", userMapper.getUserByUsername(targetUsername));
+        User targetUser = userMapper.getUserByUsername(targetUsername);
+        if("fk_depart".equals(column)){
+            targetUser.setFk_depart(departMapper.getDepartById(Integer.parseInt(value)));
+        }else if("fk_jurisdiction".equals(column)){
+            targetUser.setFk_jurisdiction(jurisdictionMapper.getJurisdictionById(Integer.parseInt(value)));
+        }
+        userMap.put("targetUser", targetUser);
         userMap.put("column", column);
         userMap.put("value", value);
         map.put("returnIsTrue",String.valueOf(userMapper.updateUserByUserMap(userMap)));
@@ -63,7 +72,7 @@ public class DataTableService {
     public String insertUserByUserMap(String myUsername,User targetUser) throws JsonProcessingException {
         //前台传递过来的user没有详细的部门角色信息需要查询设置
         targetUser.setFk_depart(departMapper.getDepartById(targetUser.getFk_depart().getId()));;
-        
+
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = new HashMap<String,String>();
         Map<String, User> userMap = new HashMap<String,User>();
