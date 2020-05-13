@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AuthorityMapper {
-    public Authority getAuthorityById();
+    public Authority getAuthorityById(int id);
 }

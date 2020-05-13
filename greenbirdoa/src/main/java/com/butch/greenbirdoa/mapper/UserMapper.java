@@ -28,5 +28,25 @@ public interface UserMapper {
 	 * 2. key值:targetUser	想要操作的用户
 	 * @return 处理结果,false:没有权限,true:操作成功
 	 */
-    public boolean deleteUserByUsername(Map<String,User> users);
+    public boolean deleteUserByUserMap(Map<String,User> users);
+
+	/**
+	 * 使用map<String,Object>修改一个用户
+	 * 1. key值:myUser      当前登录的用户
+	 * 2. key值:targetUser	想要操作的用户
+	 * 3. key:column 需要修改的列
+	 * 4. key:value  需要修改的值
+	 * @param userMap
+	 * @return
+	 */
+	public boolean updateUserByUserMap(Map<String, Object> userMap);
+
+	/**
+	 * 使用Map<String,User>添加一个用户
+	 * @param users 装着2个用户的Map,
+	 * 1. key值:myUser      当前登录的用户
+	 * 2. key值:targetUser	想要操作的用户
+	 * @return 处理结果,false:没有权限,true:操作成功
+	 */
+	public boolean insertUserByUsers(Map<String, User> users);
 }

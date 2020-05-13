@@ -319,23 +319,34 @@
             var td = tr.find("td");
             var json = {
                 name: td.eq($("th[dataColName=name]")[0].cellIndex).text(),
-                user: td.eq($("th[dataColName=username]")[0].cellIndex).text(),
-                pwd: td.eq($("th[dataColName=password]")[0].cellIndex).text(),
-                fk_sex: td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
+                username: td.eq($("th[dataColName=username]")[0].cellIndex).text(),
+                password: td.eq($("th[dataColName=password]")[0].cellIndex).text(),
+                fk_sex:
+                {
+                    id: td.eq($("th[dataColName=fk_sex]")[0].cellIndex).attr("fk_id"),
+                },
                 address: td.eq($("th[dataColName=address]")[0].cellIndex).text(),
                 phone: td.eq($("th[dataColName=phone]")[0].cellIndex).text(),
                 lastsign: td.eq($("th[dataColName=lastsign]")[0].cellIndex).text(),
                 absenteeism: td.eq($("th[dataColName=absenteeism]")[0].cellIndex).text(),
                 salary: td.eq($("th[dataColName=salary]")[0].cellIndex).text(),
-                fk_depart: td.eq($("th[dataColName=fk_depart]")[0].cellIndex).attr("fk_id"),
-                fk_jurisdiction: td.eq($("th[dataColName=fk_jurisdiction]")[0].cellIndex).attr("fk_id")
+                fk_depart:
+                {
+                    id: td.eq($("th[dataColName=fk_depart]")[0].cellIndex).attr("fk_id"),
+                },
+                fk_jurisdiction: {
+                    id: td.eq($("th[dataColName=fk_jurisdiction]")[0].cellIndex).attr("fk_id"),
+                }
+
             };
+            console.log(json);
             var Return = false;
             $.ajax({
                 async: false,                 //添加必须为非异步
-                url: "manage_AddUser.do",    //请求的url
+                url: "data/table/user",    //请求的url
                 type: "post",               //请求方式get，post          
-                data: json,                 //传递给服务器的数据
+                data: JSON.stringify(json),                 //传递给服务器的数据
+                contentType: "application/json",
                 dataType: "json",           //返回的数据类型为文本
                 success: function (data) {
                     if (data.returnIsTrue == "true") {
@@ -368,15 +379,11 @@
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
                 success: function (data) {
-                    if (data.authority != "false") {
-                        if (data.returnIsTrue == "true") {
-                            alert("删除成功.");
-                            Return = true;
-                        } else {
-                            alert("删除失败,请联系管理员.");
-                        }
+                    if (data.returnIsTrue == "true") {
+                        alert("删除成功.");
+                        Return = true;
                     } else {
-                        alert("权限不足!!!");
+                        alert("删除失败,权限不足!!!");
                     }
 
                 },
@@ -390,15 +397,15 @@
         //修改用户的其中一项
         function editUser(td) {
             var json = {
-                user: td.siblings("td").eq($("th[dataColName=username]")[0].cellIndex).text(),
-                key: $("th").eq(td[0].cellIndex).attr("dataColName"),
+                username: td.siblings("td").eq($("th[dataColName=username]")[0].cellIndex).text(),
+                column: $("th").eq(td[0].cellIndex).attr("dataColName"),
                 value: td.children().eq(0).val()
             };
             var Return = false;
             $.ajax({
                 async: false,                 //添加必须为非异步
-                url: "manage_EditUser.do",    //请求的url
-                type: "post",               //请求方式get，post          
+                url: "data/table/user",    //请求的url
+                type: "patch",               //请求方式get，post          
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
                 success: function (data) {
