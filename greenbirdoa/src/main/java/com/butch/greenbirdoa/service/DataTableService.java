@@ -55,13 +55,18 @@ public class DataTableService {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = new HashMap<String,String>();
         Map<String, Object> userMap = new HashMap<String,Object>();
-        userMap.put("myUser", userMapper.getUserByUsername(myUsername));
+        User myUser = userMapper.getUserByUsername(myUsername);
         User targetUser = userMapper.getUserByUsername(targetUsername);
-        if("fk_depart".equals(column)){
-            targetUser.setFk_depart(departMapper.getDepartById(Integer.parseInt(value)));
-        }else if("fk_jurisdiction".equals(column)){
-            targetUser.setFk_jurisdiction(jurisdictionMapper.getJurisdictionById(Integer.parseInt(value)));
+        //如果是自己修改自己那么不事先载入数据到targetUser
+        if(myUser.getUsername().equals(targetUser.getUsername())==false){
+            if("fk_depart".equals(column)){
+                targetUser.setFk_depart(departMapper.getDepartById(Integer.parseInt(value)));
+            }else if("fk_jurisdiction".equals(column)){
+                targetUser.setFk_jurisdiction(jurisdictionMapper.getJurisdictionById(Integer.parseInt(value)));
+            }
         }
+        
+        userMap.put("myUser", myUser);
         userMap.put("targetUser", targetUser);
         userMap.put("column", column);
         userMap.put("value", value);

@@ -8,10 +8,19 @@ spring:
     druid:
       # 监控界面和账号密码
       stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
         login-username: admin
         login-password: admin
-        url-pattern: /aabbccddee
-        enabled: true
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+            
+              
 
 mybatis:
   #pojo类的别名,这里指的是pojo包的包位置

@@ -31,6 +31,43 @@
     select * from user 
   </select>
 
+  <!--增删改的访问权限判断 -->
+  <sql id="accessDecision">
+    <choose>
+      <!-- 管理部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==1">
+          (
+            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}!=1)
+            or
+            <!-- 可以操作级别小于自己的管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
+          )
+      </when>
+      <!-- 人事部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==2">
+          ( 
+            <!-- 可以操作级别小于或者等于自己的普通用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
+            or 
+            <!-- 可以操作级别小于自己的人事用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
+          )
+      </when>
+      <!-- 普通部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==3">
+        (
+          <!-- 不允许操作 -->
+          1=2
+        )
+      </when>
+      <!-- 未知部门不允许操作 -->
+      <otherwise>
+          1=2
+      </otherwise>
+    </choose>
+  </sql>
+
   <!-- 当前角色查询操作 -->
   <select id="getUsersByUser" resultMap="User_Map" parameterType="user">
     select * from user
@@ -58,84 +95,23 @@
 
   <!-- 当前角色删除操作 -->
   <delete id="deleteUserByUserMap" parameterType="map">
-    delete from user where username=#{targetUser.username} 
-    <choose>
-      <!-- 管理部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==1">
-        and
-          (
-            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}!=1)
-            or
-            <!-- 可以操作级别小于自己的管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
-          )
-      </when>
-      <!-- 人事部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==2">
-        and
-          ( 
-            <!-- 可以操作级别小于或者等于自己的普通用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
-            or 
-            <!-- 可以操作级别小于自己的人事用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
-          )
-      </when>
-      <!-- 普通部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==3">
-        and
-        (
-          <!-- 不允许操作 -->
-          1=2
-        )
-      </when>
-      <!-- 未知部门不允许操作 -->
-      <otherwise>
-        and 1=2
-      </otherwise>
-    </choose>
+    delete from user where username=#{targetUser.username} and
+    <include refid="accessDecision"/>
   </delete>
 
   <!-- 当前角色修改操作 需要比其他多验证想要操作东西的权限-->
   <update id="updateUserByUserMap" parameterType="map">
-    update user set ${column}=#{value} where username=#{targetUser.username} 
-    <choose>
-      <!-- 管理部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==1">
-        and
-          (
-            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}!=1)
-            or
-            <!-- 可以操作级别小于自己的管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
-          )
-      </when>
-      <!-- 人事部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==2">
-        and
-          ( 
-            <!-- 可以操作级别小于或者等于自己的普通用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
-            or 
-            <!-- 可以操作级别小于自己的人事用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
-          )
-      </when>
-      <!-- 普通部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==3">
-        and
-        (
-          <!-- 不允许操作 -->
-          1=2
-        )
-      </when>
-      <!-- 未知部门不允许操作 -->
-      <otherwise>
-        and 1=2
-      </otherwise>
-    </choose>
+    update user set ${column}=#{value} where username=#{targetUser.username} and 
+    (
+      ( <include refid="accessDecision"/> )
+    or
+      <!-- 如果是管理部门那么可以修改自己的信息但是不能修改部门和级别 -->
+      (
+        #{myUser.fk_depart.fk_authority.id}=1 and
+        #{myUser.username}=#{targetUser.username} 
+        and (#{column}!='fk_depart' and #{column}!='fk_jurisdiction')
+      )
+    )
   </update>
 
   <!-- 当前角色添加操作 查询默认空表dual(mysql自带空表dual满足函数使用)-->
@@ -144,42 +120,7 @@
     select
       #{targetUser.username},#{targetUser.password},#{targetUser.name},#{targetUser.fk_sex.id},#{targetUser.address},#{targetUser.phone},
       #{targetUser.salary},#{targetUser.lastsign},#{targetUser.absenteeism},#{targetUser.fk_jurisdiction.id},#{targetUser.fk_depart.id}
-      from dual where 1=1
-    <choose>
-      <!-- 管理部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==1">
-        and
-          (
-            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}!=1)
-            or
-            <!-- 可以操作级别小于自己的管理角色用户 -->
-            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
-          )
-      </when>
-      <!-- 人事部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==2">
-        and
-          ( 
-            <!-- 可以操作级别小于或者等于自己的普通用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
-            or 
-            <!-- 可以操作级别小于自己的人事用户 -->
-            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
-          )
-      </when>
-      <!-- 普通部门 -->
-      <when test="myUser.fk_depart.fk_authority.id==3">
-        and
-        (
-          <!-- 不允许操作 -->
-          1=2
-        )
-      </when>
-      <!-- 未知部门不允许操作 -->
-      <otherwise>
-        and 1=2
-      </otherwise>
-    </choose>
+      from dual where 
+      <include refid="accessDecision"/>
   </insert>
 </mapper>
