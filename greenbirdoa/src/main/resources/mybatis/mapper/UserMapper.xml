@@ -31,7 +31,7 @@
     select * from user 
   </select>
 
-  <!--增删改的访问权限判断 -->
+  <!--不同角色的增删改权限判断 -->
   <sql id="accessDecision">
     <choose>
       <!-- 管理部门 -->
