@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.butch.greenbirdoa.mapper.AuthorityMapper;
 import com.butch.greenbirdoa.mapper.DepartMapper;
 import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;

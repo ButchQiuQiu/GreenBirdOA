@@ -1,7 +1,5 @@
 package com.butch.greenbirdoa;
 
-import javax.sql.DataSource;
-
 import com.butch.greenbirdoa.mapper.DepartMapper;
 import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;
