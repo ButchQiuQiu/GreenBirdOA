@@ -22,7 +22,8 @@ import org.springframework.stereotype.Component;
 public class MyAccessDecisionManager implements AccessDecisionManager {
 	@Autowired
 	AccessDecisionService accessDecisionService;
-
+	@Autowired
+	ReflectUtil reflectUtil;
 	/**
 	 * 
 	 * 自定义鉴权
@@ -42,7 +43,6 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 		if (authentication.getAuthorities().toString().equals("[ROLE_ANONYMOUS]")) {
 			throw new BadCredentialsException("用户未登录");
 		}
-
 		/**
 		 * 
 		 * 会在AccessDecisionService中寻找对应函数鉴权,没找到对应鉴权函数代表此请求不需要权限
@@ -55,7 +55,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 		String methodName = filterInvocation.getRequestUrl().substring(1).replace('/', '_')
 				+"_"+ authentication.getAuthorities().toArray()[0]+"_"+filterInvocation.getHttpRequest().getMethod();
 		System.out.println("映射值为:"+methodName);
-		Object re = ReflectUtil.useMethodByMethodName(accessDecisionService, methodName,
+		Object re = reflectUtil.useMethodByMethodName(accessDecisionService, methodName,
 				filterInvocation.getHttpRequest(),authentication.getName());
 		if (re != null) {
 			if ((boolean) re == false) {

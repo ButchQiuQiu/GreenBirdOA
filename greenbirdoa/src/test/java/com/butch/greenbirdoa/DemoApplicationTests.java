@@ -5,6 +5,7 @@ import com.butch.greenbirdoa.mapper.JurisdictionMapper;
 import com.butch.greenbirdoa.mapper.SexMapper;
 import com.butch.greenbirdoa.mapper.UserMapper;
 import com.butch.greenbirdoa.service.DataTableService;
+import com.butch.greenbirdoa.util.JwtUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,12 @@ class DemoApplicationTests {
 
 	@Autowired
 	DataTableService dataTableService;
-
+	
+	@Autowired
+	JwtUtil jwtUtil;
 	@Test
 	void contextLoads() throws JsonProcessingException {
-		System.out.println(dataTableService.deleteUserByUsername("Qiu1234561111117","Qiu1234561111122"));
+		System.out.println(jwtUtil.getJwtToken());
 	}
 	//使用BCryptPasswordEncoder加密密码
 	@Test

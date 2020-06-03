@@ -22,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * 除了webconfig还是其他场景使用的adapter,按照适配器模式来说的话.
  */
 
-// 待移植security
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

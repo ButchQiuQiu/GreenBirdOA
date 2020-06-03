@@ -3,11 +3,14 @@ package com.butch.greenbirdoa.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ReflectUtil
  * 
  * 反射工具类,参与鉴权的分发
  */
+@Component
 public class ReflectUtil {
 
     /**
@@ -18,7 +21,7 @@ public class ReflectUtil {
      * @param parms      参数
      * @return 方法返回值,没有找到方法会返回null(不添加健壮性代码那么程序就当无事发生)
      */
-    public static Object useMethodByMethodName(Object object, String methodName, Object... parms) {
+    public Object useMethodByMethodName(Object object, String methodName, Object... parms) {
         Method[] methods = object.getClass().getMethods();
         for (Method method : methods) {
             if (method.getName().equals(methodName)) {
